@@ -6,6 +6,8 @@
 ## [Confluence](https://id.atlassian.com/invite/p/confluence?id=uy9QaPnWQk23aMa8FFealg)
 # Figma Page:
 ## [Figma](https://www.figma.com/files/team/1423590514803812078/project/285331166/COM619-Assessment?fuid=1260524408447070470)
+# Streamlit Documentation:
+## [Streamlit](https://docs.streamlit.io)
 
 ## Members
 - [James Ingram](https://github.com/JamIng03)
