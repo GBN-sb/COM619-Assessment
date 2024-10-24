@@ -1,7 +1,7 @@
 ﻿# COM619-Assessment
 
-# Project Diary:
-## [Google Drive](https://docs.google.com/document/d/1kdmuywYk8xJ9IU3yOw_Zznre3XizPHINFuBN0292dgQ/edit?usp=sharing)
+# Project Documentation (AE1):
+## [Google Drive](https://docs.google.com/document/d/1VN2-we5SJCOTvAQTP-Lv4IEwNwW3GCtpGvKNNyqtoTM/edit?tab=t.0#heading=h.ll34t3iu6smb)
 # Confluence Page:
 ## [Confluence](https://id.atlassian.com/invite/p/confluence?id=uy9QaPnWQk23aMa8FFealg)
 # Figma Page:
