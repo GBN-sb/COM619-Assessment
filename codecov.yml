@@ -1,7 +1,17 @@
-comment:                  # this is a top-level key
-  layout: " diff, flags, files"
-  behavior: default
-  require_changes: false 
-  require_base: false 
-  require_head: true 
-  hide_project_coverage: false
+comment:
+  show_critical_paths: true
+
+beta_groups:
+  - "labels"
+
+flag_management:
+  individual_flags:
+    - name: "smart-labels"
+      carryforward: true
+      carryforward_mode: "labels"
+
+codecov:
+  require_ci_to_pass: false
+
+test_analytics:
+  flake_detection: true
