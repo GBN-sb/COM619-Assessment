@@ -1,0 +1,11 @@
+codecov:
+  notify:
+    require_ci_to_pass: yes
+
+comment:
+  layout: "reach, diff, flags, files"
+  behavior: default
+  require_changes: true
+  require_base: false
+  require_head: true
+  require_report: true
