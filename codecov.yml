@@ -1,0 +1,24 @@
+comment:
+  show_critical_paths: true
+
+beta_groups:
+  - "labels"
+
+flag_management:
+  individual_flags:
+    - name: "smart-labels"
+      carryforward: true
+      carryforward_mode: "labels"
+
+codecov:
+  require_ci_to_pass: true
+
+test_analytics:
+  flake_detection: true
+
+coverage:
+  status:
+    project:
+      default:
+        target: 80%
+        threshold: 1%
