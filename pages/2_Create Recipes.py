@@ -32,3 +32,5 @@ with st.form("recipe_form"):
 
     # Finish button
     st.form_submit_button("Finish")
+
+# TODO Add backend processing and functionality 
