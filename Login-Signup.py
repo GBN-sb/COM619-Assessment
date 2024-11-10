@@ -1,8 +1,9 @@
 import streamlit as st
 
-usernames = ["User_Username", "Admin_Username"] # TODO - Import these from DB
+usernames = ["User_Username", "Admin_Username"]  # TODO - Import these from DB
 passwords = ["User_Password", "Admin_Password"]
 type = ["User", "Admin"]
+
 
 def login():
     st.title("Login")
@@ -35,12 +36,14 @@ def login():
         st.session_state.logged_in = True
         st.rerun()
 
+
 def signup():
     st.title("Signup")
-    with st.form("SignupForm"):
+    with (st.form("SignupForm")):
         usernameSignup = st.text_input("Username")
         passwordSignup = st.text_input("Password", type="password")
-        passwordReEntry = st.text_input("Re-Enter Your Password", type="password")
+        passwordReEntry = st.text_input("Re-Enter Your Password",
+                                        type="password")
 
         if st.form_submit_button("Signup"):
             if passwordSignup != passwordReEntry:
@@ -70,6 +73,7 @@ def signup():
         st.session_state.logged_in = True
         st.rerun()
 
+
 def Homepage():
     st.title("Homepage")
 
@@ -84,6 +88,7 @@ def Homepage():
         st.session_state.admin = False
         st.session_state.guest = False
         st.rerun()
+
 
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
