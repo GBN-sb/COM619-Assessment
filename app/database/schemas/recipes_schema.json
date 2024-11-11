@@ -1,0 +1,31 @@
+{
+    "type": "object",
+    "properties": {
+        "_id": {
+            "type": "string"
+        },
+        "userId": {
+            "type": "string"
+        },
+        "recipeId": {
+            "type": "string"
+        },
+        "title": {
+            "type": "string"
+        },
+        "description": {
+            "type": "string"
+        },
+        "notes": {
+            "type": "string"
+        },
+        "likesCount": {
+            "type": "number"
+        },
+        "created_at": {
+            "type": "string"
+        }
+    },
+    "required": ["_id", "userId", "recipeId", "title", "description", "likesCount", "created_at"],
+    "additionalProperties": false
+}

@@ -1,0 +1,22 @@
+{
+    "type": "object",
+    "properties": {
+        "_id": {
+            "type": "string"
+        },
+        "userId": {
+            "type": "string"
+        },
+        "recipeId": {
+            "type": "string"
+        },
+        "likeId": {
+            "type": "string"
+        },
+        "created_at": {
+            "type": "string"
+        }
+    },
+    "required": ["_id", "userId", "recipeId", "likeId", "created_at"],
+    "additionalProperties": false
+}

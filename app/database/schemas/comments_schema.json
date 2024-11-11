@@ -1,0 +1,25 @@
+{
+    "type": "object",
+    "properties": {
+        "_id": {
+            "type": "string"
+        },
+        "userId": {
+            "type": "string"
+        },
+        "recipeId": {
+            "type": "string"
+        },
+        "commentId": {
+            "type": "string"
+        },
+        "comment": {
+            "type": "string"
+        },
+        "created_at": {
+            "type": "string"
+        }
+    },
+    "required": ["_id", "userId", "recipeId", "commentId", "comment", "created_at"],
+    "additionalProperties": false
+}

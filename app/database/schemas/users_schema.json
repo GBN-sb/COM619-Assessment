@@ -1,0 +1,34 @@
+{
+    "type": "object",
+    "properties": {
+        "_id": {
+            "type": "string"
+        },
+        "userId": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "email": {
+            "type": "string"
+        },
+        "passwordHash": {
+            "type": "string"
+        },
+        "profilePicture": {
+            "type": "string"
+        },
+        "role": {
+            "type": "string"
+        },
+        "bio": {
+            "type": "string"
+        },
+        "created_at": {
+            "type": "string"
+        }
+    },
+    "required": ["_id", "userId", "name", "email", "passwordHash", "role", "created_at"],
+    "additionalProperties": false
+}
