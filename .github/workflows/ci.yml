@@ -1,5 +1,4 @@
 name: CI Pipeline
-
 on:
   push:
     branches:
@@ -99,8 +98,7 @@ jobs:
           else
             echo "Test files found."
             echo "skip_upload=false" >> $GITHUB_ENV
-          fi
-
+          
       - name: Run tests
         if: env.skip_upload == 'false'
         run: pytest --cov --junitxml=junit.xml -o junit_family=legacy

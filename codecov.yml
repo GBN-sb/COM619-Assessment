@@ -11,7 +11,14 @@ flag_management:
       carryforward_mode: "labels"
 
 codecov:
-  require_ci_to_pass: false
+  require_ci_to_pass: true
 
 test_analytics:
   flake_detection: true
+
+coverage:
+  status:
+    project:
+      default:
+        target: 80%
+        threshold: 1%
