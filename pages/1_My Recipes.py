@@ -27,10 +27,12 @@ for recipe in recipes:
         col1, col2 = st.columns([1, 1], gap="small")
         with col1:
             if st.button("Edit", key=f"edit_{recipe['title']}"):
-                st.write(f"Editing {recipe['title']}...")  # TODO add button functionality
+                st.write(f"Editing {recipe['title']}...") 
+                # TODO add button functionality
         with col2:
             if st.button("Remove", key=f"remove_{recipe['title']}"):
-                st.write(f"Removing {recipe['title']}...")  # TODO add button functionality
+                st.write(f"Removing {recipe['title']}...")
+                # TODO add button functionality
 
         # Spacing between recipe entries
         st.write("---")
