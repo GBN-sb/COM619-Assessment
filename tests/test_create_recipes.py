@@ -2,6 +2,7 @@ import pytest
 import streamlit as st
 from itertools import cycle
 from app.pages import Create_Recipes
+from app.Settings import display_settings
 
 @pytest.fixture
 def setup_streamlit_mock(mocker):

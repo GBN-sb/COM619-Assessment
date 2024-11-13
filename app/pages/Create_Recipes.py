@@ -1,11 +1,17 @@
 import streamlit as st
+from Settings import display_settings
 
-st.set_page_config(page_title="Create Recipes", layout="wide")
+# Page layout setup
+st.set_page_config(page_title="Homepage", layout="wide")
 
-# Sidebar buttons
-col1, col2 = st.sidebar.columns(2)
-button1 = col1.button('Logout')
-button2 = col2.button('Settings')
+# Sidebar setup with buttons for Logout and Settings
+with st.sidebar:
+    col1, col2 = st.columns(2)
+    if col1.button("Logout"):
+        # Implement logout logic here
+        st.write("You have been logged out.")  # Placeholder
+    if col2.button("Settings"):
+        st.session_state.show_settings = not st.session_state.show_settings
 
 def display_form():
     """Displays the recipe creation form and returns form inputs."""
@@ -42,7 +48,11 @@ def display_form():
         "finished": finished
     }
 
-st.title("Create Recipes")
-form_data = display_form()
+# Main content area
+if st.session_state.show_settings:
+    display_settings()  # Display settings in the main content area
+else:
+    st.title("Homepage")
+    display_form()
 
 # TODO: Add backend processing and functionality for form_data when finished
