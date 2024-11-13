@@ -1,10 +1,10 @@
 import streamlit as st
-from Settings import display_settings
+from app.Settings import display_settings
 
 st.set_page_config(page_title="Search Recipes", layout="wide")
 
 # Initialize session state for settings display toggle
-if "show_settings" not in st.session_state:
+if "display_settings" not in st.session_state:
     st.session_state.show_settings = False
 
 # Sidebar setup with buttons for Logout and Settings

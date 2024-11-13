@@ -1,5 +1,5 @@
 import streamlit as st
-from Settings import display_settings
+from app.Settings import display_settings
 
 # Page layout setup
 st.set_page_config(page_title="My Recipes", layout="wide")
