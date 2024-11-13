@@ -1,15 +1,22 @@
 import streamlit as st
+from Settings import display_settings
 
-st.set_page_config(page_title="Create Recipes", layout="wide")
+st.set_page_config(page_title="Search Recipes", layout="wide")
 
-# Sidebar buttons
-col1, col2 = st.sidebar.columns(2)
-button1 = col1.button('Logout')
-button2 = col2.button('Settings')
+# Initialize session state for settings display toggle
+if "show_settings" not in st.session_state:
+    st.session_state.show_settings = False
+
+# Sidebar setup with buttons for Logout and Settings
+with st.sidebar:
+    col1, col2 = st.columns(2)
+    if col1.button("Logout"):
+        # Implement logout logic here
+        st.write("You have been logged out.")  # Placeholder
+    if col2.button("Settings"):
+        st.session_state.show_settings = not st.session_state.show_settings
 
 def display_recipe_search(recipes, available_tags):
-    st.title("Search Recipes")
-    
     col1, col2 = st.columns([3, 1])
     with col1:
         search_query = st.text_input("Search by title:")
@@ -42,4 +49,9 @@ recipes = [
     {"title": "Tacos", "tags": ["Mexican", "Snack"]}
 ]
 
-form_data = display_recipe_search(recipes, available_tags)
+# Main content area
+if st.session_state.show_settings:
+    display_settings()  # Display settings in the main content area
+else:
+    st.title("Search Recipes")
+    form_data = display_recipe_search(recipes, available_tags)

@@ -2,7 +2,7 @@ import streamlit as st
 from Settings import display_settings
 
 # Page layout setup
-st.set_page_config(page_title="Homepage", layout="wide")
+st.set_page_config(page_title="My Recipes", layout="wide")
 
 # Initialize session state for settings display toggle
 if "show_settings" not in st.session_state:

@@ -2,7 +2,7 @@ import streamlit as st
 from Settings import display_settings
 
 # Page layout setup
-st.set_page_config(page_title="Homepage", layout="wide")
+st.set_page_config(page_title="Create Recipes", layout="wide")
 
 # Sidebar setup with buttons for Logout and Settings
 with st.sidebar:
@@ -52,7 +52,7 @@ def display_form():
 if st.session_state.show_settings:
     display_settings()  # Display settings in the main content area
 else:
-    st.title("Homepage")
+    st.title("Create Recipes")
     display_form()
 
 # TODO: Add backend processing and functionality for form_data when finished
