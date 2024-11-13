@@ -1,5 +1,5 @@
 import streamlit as st
-from Settings import display_settings
+from Settings import display_settings, hide_settings
 
 # Page layout setup
 st.set_page_config(page_title="Homepage", layout="wide")
@@ -21,5 +21,6 @@ with st.sidebar:
 if st.session_state.show_settings:
     display_settings()  # Display settings in the main content area
 else:
+    hide_settings()
     st.title("Homepage")
     st.write("Main application content goes here.")

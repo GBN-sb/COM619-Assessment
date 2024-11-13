@@ -1,4 +1,3 @@
-# settings.py
 import streamlit as st
 
 def display_settings():
@@ -54,5 +53,8 @@ def display_settings():
             return new_username, new_email, new_password, new_profile_picture, units_option
         else:
             st.error("Current details do not match. Please try again.")
-
+    
     st.write("---")
+
+def hide_settings():
+    st.session_state.show_settings = False

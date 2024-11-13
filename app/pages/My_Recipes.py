@@ -1,5 +1,5 @@
 import streamlit as st
-from app.Settings import display_settings
+from Settings import display_settings, hide_settings
 
 # Page layout setup
 st.set_page_config(page_title="My Recipes", layout="wide")
@@ -40,4 +40,5 @@ if st.session_state.show_settings:
     display_settings()  # Display settings in the main content area
 else:
     st.title("My Recipes")
+    hide_settings()
     display_recipes(recipes)
