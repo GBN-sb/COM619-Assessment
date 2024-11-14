@@ -1,0 +1,39 @@
+[[pages]]
+path = "pages/Homepage.py"
+name = "Homepage"
+icon = "🏠"
+
+[[pages]]
+name = "User Actions"
+icon = "🎈️"
+is_section = true
+
+[[pages]]
+path = "pages/My_Recipes.py"
+name = "My Recipes"
+icon = "👨‍🍳"
+
+[[pages]]
+path = "pages/Create_Recipes.py"
+name = "Create Recipes"
+icon = "🍳"
+
+[[pages]]
+path = "pages/Search_Recipes.py"
+name = "Search Recipes"
+icon = "🍽️"
+
+[[pages]]
+name = "Options"
+icon = "❓"
+is_section = true
+
+[[pages]]
+path = "pages/Settings.py"
+name = "Settings"
+icon = "⚙️"
+
+[[pages]]
+path = "pages/Logout.py"
+name = "Logout"
+icon = "↪"

@@ -2,7 +2,6 @@ import streamlit as st
 
 def display_settings():
     """Display the settings options overlay on the current page."""
-    st.title("Settings")
     st.write("---")
     col1, col2, col3 = st.columns([1, 1, 1], gap="medium")
 
@@ -53,8 +52,5 @@ def display_settings():
             return new_username, new_email, new_password, new_profile_picture, units_option
         else:
             st.error("Current details do not match. Please try again.")
-    
-    st.write("---")
 
-def hide_settings():
-    st.session_state.show_settings = False
+display_settings()
