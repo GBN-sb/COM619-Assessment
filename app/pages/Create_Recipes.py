@@ -1,4 +1,7 @@
 import streamlit as st
+from navigation import make_sidebar
+
+make_sidebar()
 
 def display_form():
     """Displays the recipe creation form and returns form inputs."""

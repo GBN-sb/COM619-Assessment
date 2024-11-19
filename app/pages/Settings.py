@@ -1,4 +1,7 @@
 import streamlit as st
+from navigation import make_sidebar
+
+make_sidebar()
 
 def display_settings():
     """Display the settings options overlay on the current page."""
