@@ -1,12 +1,5 @@
 import streamlit as st
 
-st.set_page_config(page_title="Create Recipes", layout="wide")
-
-# Sidebar buttons
-col1, col2 = st.sidebar.columns(2)
-button1 = col1.button('Logout')
-button2 = col2.button('Settings')
-
 def display_form():
     """Displays the recipe creation form and returns form inputs."""
     with st.form("recipe_form"):
@@ -42,7 +35,6 @@ def display_form():
         "finished": finished
     }
 
-st.title("Create Recipes")
-form_data = display_form()
+display_form()
 
 # TODO: Add backend processing and functionality for form_data when finished

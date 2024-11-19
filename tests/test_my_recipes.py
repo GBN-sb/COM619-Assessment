@@ -6,14 +6,11 @@ from app.pages import My_Recipes
 @pytest.fixture
 def setup_streamlit_mock(mocker):
     """Fixture to mock streamlit functions."""
-    mocker.patch("streamlit.button")
+    mocker.patch("streamlit.button", side_effect=cycle([False]))
     mocker.patch("streamlit.container")
     mocker.patch("streamlit.write")
 
 def test_recipe_display(setup_streamlit_mock, mocker):
-    # Mock button clicks
-    mocker.patch("streamlit.button", side_effect=cycle([False]))
-
     # Test data
     recipes = [
         {"title": "Title 1"},

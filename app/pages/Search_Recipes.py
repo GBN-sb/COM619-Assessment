@@ -1,15 +1,6 @@
 import streamlit as st
 
-st.set_page_config(page_title="Create Recipes", layout="wide")
-
-# Sidebar buttons
-col1, col2 = st.sidebar.columns(2)
-button1 = col1.button('Logout')
-button2 = col2.button('Settings')
-
 def display_recipe_search(recipes, available_tags):
-    st.title("Search Recipes")
-    
     col1, col2 = st.columns([3, 1])
     with col1:
         search_query = st.text_input("Search by title:")

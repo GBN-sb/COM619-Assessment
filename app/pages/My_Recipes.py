@@ -1,15 +1,6 @@
 import streamlit as st
 
-st.set_page_config(page_title="My Recipes", layout="wide")
-
-# Sidebar buttons
-col1, col2 = st.sidebar.columns(2)
-col1.button('Logout')
-col2.button('Settings')
-
 def display_recipes(recipes):
-    st.title("My Recipes")
-
     for recipe in recipes:
         with st.container():
             st.write(f"**{recipe['title']}**")
@@ -26,4 +17,5 @@ def display_recipes(recipes):
 
 # Initialize recipes
 recipes = [{"title": "Title 1"}, {"title": "Title 2"}, {"title": "Title 3"}]
+
 display_recipes(recipes)
