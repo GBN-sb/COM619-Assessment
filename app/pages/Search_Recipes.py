@@ -1,4 +1,7 @@
 import streamlit as st
+from navigation import make_sidebar
+
+make_sidebar()
 
 def display_recipe_search(recipes, available_tags):
     col1, col2 = st.columns([3, 1])
