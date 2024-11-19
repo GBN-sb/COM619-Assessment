@@ -6,9 +6,9 @@ make_sidebar()
 st.write("---")
 st.write("Page content goes here")
 
-if st.session_state.logged_in == True:
+if st.session_state.logged_in:
     st.write("User")
-elif st.session_state.admin == True:
+elif st.session_state.admin:
     st.write("Admin")
-elif st.session_state.guest == True:
+elif st.session_state.guest:
     st.write("Guest")
