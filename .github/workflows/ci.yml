@@ -90,11 +90,9 @@ jobs:
           pip install pytest pytest-cov streamlit
 
       - name: Run tests
-        if: env.skip_upload == 'false'
         run: pytest --cov --junitxml=junit.xml -o junit_family=legacy
 
       - name: Upload coverage to Codecov
-        if: env.skip_upload == 'false'
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
