@@ -40,11 +40,11 @@ def display_form():
     }
 
 
-def main():
+def main():  # pragma: no cover
     make_sidebar()
     form_data = display_form()
     return form_data
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     main()

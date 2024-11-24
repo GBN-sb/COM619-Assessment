@@ -18,7 +18,7 @@ def display_recipes(recipes):
             st.write("---")
 
 
-def main():
+def main():  # pragma: no cover
     st.set_page_config(layout="wide")
     make_sidebar()
 
@@ -29,5 +29,5 @@ def main():
 
 
 # Run the main function
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     main()

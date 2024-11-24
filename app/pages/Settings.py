@@ -66,7 +66,7 @@ def display_settings():
             st.error("Current details do not match. Please try again.")
 
 
-def main():
+def main():  # pragma: no cover
     st.set_page_config(layout="wide")
     make_sidebar()
 
@@ -74,5 +74,5 @@ def main():
     display_settings()
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     main()

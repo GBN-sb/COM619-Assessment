@@ -32,7 +32,7 @@ def display_recipe_search(recipes, available_tags):
         st.write("No recipes found matching your criteria.")
 
 
-def main():
+def main():  # pragma: no cover
     st.set_page_config(layout="wide")
     make_sidebar()
 
@@ -48,5 +48,5 @@ def main():
     display_recipe_search(recipes, available_tags)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     main()
