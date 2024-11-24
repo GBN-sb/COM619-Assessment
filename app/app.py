@@ -1,92 +1,85 @@
 import streamlit as st
 from time import sleep
 
+# User data
 usernames = ["username", "admin"]
 passwords = ["password", "admin"]
-user_type = ["user", "admin"]
+user_types = ["user", "admin"]
 
+# Page setup
+st.set_page_config(page_title="Login/Signup", page_icon="🔐", layout="centered")
+st.title("🍴 Welcome to Recipes")
+st.markdown("---")  # Divider for better separation
 
-st.title("Welcome to Recipes")
-
+# Login Page
 def login_page():
+    st.header("Login")
+    st.markdown("### Please log in to continue.")
+    with st.expander("Temporary Login Information"): # TODO Remove this once the database and DAOs have been integrated
+        st.write("User: username `username`, password `password`.") # ^
+        st.write("Admin: username `admin`, password `admin`.") # ^
 
-    st.write("Please log in to continue.")
-    st.write("User: username `username`, password `password`.")
-    st.write("Admin: username `admin`, password `admin`.")
-
-    username = st.text_input("Username")
-    password = st.text_input("Password", type="password")
-
-    col1, col2, col3 = st.columns(3)
-
+    # Login form
+    username = st.text_input("Username", placeholder="Enter your username")
+    password = st.text_input("Password", type="password", placeholder="Enter your password")
+    st.write("###")
+    col1, col2 = st.columns(2)
     with col1:
-        if st.button("Log in", type="primary"):
+        if st.button("Log In", use_container_width=True, type="primary"):
             if username in usernames:
-                location = usernames.index(username)
-                if password == passwords[location]:
-                    if user_type[location] == "user":
-                        st.session_state.logged_in = True
-                    elif user_type[location] == "admin":
-                        st.session_state.admin = True
-                st.success("Logged in successfully!")
-                sleep(0.5)
-                st.switch_page("pages/Homepage.py")
-
+                user_index = usernames.index(username)
+                if password == passwords[user_index]:
+                    st.session_state["logged_in"] = True
+                    user_role = user_types[user_index]
+                    st.success(f"Logged in successfully as {user_role.capitalize()}!")
+                    sleep(1)
+                    st.switch_page("pages/Homepage.py")  # Switch to the Homepage
+                else:
+                    st.error("Incorrect password. Please try again.")
             else:
-                st.error("Incorrect username or password")
-
+                st.error("Username not found. Please try again.")
     with col2:
-        if st.button("Guest", type="primary"):
-            st.session_state.guest = True
-            st.success("Logging in as Guest.")
-            sleep(0.5)
-            st.switch_page("pages/Homepage.py")
-
-    with col3:
-        if st.button("Signup", type="primary"):
+        if st.button("Signup", use_container_width=True, type="primary"):
             st.session_state.sign_up = True
             st.session_state.login_page = False
             st.rerun()
 
+    st.markdown("---")
+    if st.button("Continue as Guest", use_container_width=True, type="primary"):
+        st.session_state["guest"] = True
+        st.success("Logged in as Guest.")
+        sleep(1)
+        st.switch_page("pages/Homepage.py")
+
+# Signup Page
 def signup_page():
+    st.header("Sign Up")
+    st.markdown("### Create a new account.")
 
-    st.write("Please sign up to continue.")
-    usernameSignup = st.text_input("Username")
-    passwordSignup = st.text_input("Password", type="password")
-    passwordReEntry = st.text_input("Re-Enter Your Password", type="password")
-
-    col1, col2, col3 = st.columns(3)
-
+    # Signup form
+    username_signup = st.text_input("Username", placeholder="Choose a unique username")
+    password_signup = st.text_input("Password", type="password", placeholder="Create a password")
+    password_reentry = st.text_input("Confirm Password", type="password", placeholder="Re-enter your password")
+    st.write("###")
+    col1, col2 = st.columns(2)
     with col1:
-        if st.button("Sign up", type="primary"):
-            if usernameSignup in usernames:
-                    st.error("There is already an account with this username.")
+        if st.button("Sign Up", use_container_width=True, type="primary"):
+            if username_signup in usernames:
+                st.error("This username is already taken. Please choose a different one.")
+            elif password_signup != password_reentry:
+                st.error("Passwords do not match. Please try again.")
             else:
-                    if passwordSignup != passwordReEntry:
-                        st.error("Passwords do not match.")
-                    else:
-                        usernames.append(usernameSignup)
-                        passwords.append(passwordSignup)
-                        user_type.append("User")
-
-                        st.success("Successful Account Creation. Please login.")
-                        sleep(0.5)
-                        st.session_state.logged_in = True
-                        st.session_state.sign_up = False
-                        st.switch_page("pages/Homepage.py")
-
+                usernames.append(username_signup)
+                passwords.append(password_signup)
+                user_types.append("user")
+                st.success("Account created successfully! Please log in.")
+                sleep(1)
+                st.switch_page("pages/Homepage.py")  # Switch to the Homepage
     with col2:
-        if st.button("Guest", type="primary"):
-            st.session_state.guest = True
-            st.success("Logging in as Guest.")
-            sleep(0.5)
-            st.switch_page("pages/Homepage.py")
-
-    with col3:
-        if st.button("Login", type="primary"):
-            st.session_state.login_page = True
+        if st.button("Login", use_container_width=True, type="primary"):
             st.session_state.sign_up = False
-            st.rerun()
+            st.session_state.login_page = True
+            st.switch_page("pages/Homepage.py")  # Switch to the Homepage
 
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False

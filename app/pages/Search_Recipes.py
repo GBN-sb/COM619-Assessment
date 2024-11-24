@@ -1,6 +1,7 @@
 import streamlit as st
 from navigation import make_sidebar
 
+st.set_page_config(layout="wide")
 make_sidebar()
 
 def display_recipe_search(recipes, available_tags):

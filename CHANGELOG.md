@@ -11,3 +11,5 @@ Release [0.0.1](TBD)
 - Added search recipes page [#48](https://github.com/GBN-sb/COM619-Assessment/pull/48)
 - Added settings page and added them to all current pages [#49](https://github.com/GBN-sb/COM619-Assessment/pull/49)
 - Added login and signup pages before homepage [50](https://github.com/GBN-sb/COM619-Assessment/pull/50)
+
+- Enhancement to login and signup page design [#54](https://github.com/GBN-sb/COM619-Assessment/pull/54)
