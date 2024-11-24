@@ -11,17 +11,22 @@ st.set_page_config(page_title="Login/Signup", page_icon="🔐", layout="centered
 st.title("🍴 Welcome to Recipes")
 st.markdown("---")  # Divider for better separation
 
+
 # Login Page
 def login_page():
     st.header("Login")
     st.markdown("### Please log in to continue.")
-    with st.expander("Temporary Login Information"): # TODO Remove this once the database and DAOs have been integrated
-        st.write("User: username `username`, password `password`.") # ^
-        st.write("Admin: username `admin`, password `admin`.") # ^
+    with st.expander(
+        "Temporary Login Information"
+    ):  # TODO Remove this once the database and DAOs have been integrated
+        st.write("User: username `username`, password `password`.")  # ^
+        st.write("Admin: username `admin`, password `admin`.")  # ^
 
     # Login form
     username = st.text_input("Username", placeholder="Enter your username")
-    password = st.text_input("Password", type="password", placeholder="Enter your password")
+    password = st.text_input(
+        "Password", type="password", placeholder="Enter your password"
+    )
     st.write("###")
     col1, col2 = st.columns(2)
     with col1:
@@ -51,6 +56,7 @@ def login_page():
         sleep(1)
         st.switch_page("pages/Homepage.py")
 
+
 # Signup Page
 def signup_page():
     st.header("Sign Up")
@@ -58,14 +64,20 @@ def signup_page():
 
     # Signup form
     username_signup = st.text_input("Username", placeholder="Choose a unique username")
-    password_signup = st.text_input("Password", type="password", placeholder="Create a password")
-    password_reentry = st.text_input("Confirm Password", type="password", placeholder="Re-enter your password")
+    password_signup = st.text_input(
+        "Password", type="password", placeholder="Create a password"
+    )
+    password_reentry = st.text_input(
+        "Confirm Password", type="password", placeholder="Re-enter your password"
+    )
     st.write("###")
     col1, col2 = st.columns(2)
     with col1:
         if st.button("Sign Up", use_container_width=True, type="primary"):
             if username_signup in usernames:
-                st.error("This username is already taken. Please choose a different one.")
+                st.error(
+                    "This username is already taken. Please choose a different one."
+                )
             elif password_signup != password_reentry:
                 st.error("Passwords do not match. Please try again.")
             else:
@@ -80,6 +92,7 @@ def signup_page():
             st.session_state.sign_up = False
             st.session_state.login_page = True
             st.switch_page("pages/Homepage.py")  # Switch to the Homepage
+
 
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
