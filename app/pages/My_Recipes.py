@@ -1,8 +1,6 @@
 import streamlit as st
 from navigation import make_sidebar
 
-st.set_page_config(layout="wide")
-make_sidebar()
 
 def display_recipes(recipes):
     for recipe in recipes:
@@ -19,7 +17,17 @@ def display_recipes(recipes):
                     # TODO add functionality for buttons
             st.write("---")
 
-# Initialize recipes
-recipes = [{"title": "Title 1"}, {"title": "Title 2"}, {"title": "Title 3"}]
 
-display_recipes(recipes)
+def main():
+    st.set_page_config(layout="wide")
+    make_sidebar()
+
+    # Initialize recipes
+    recipes = [{"title": "Title 1"}, {"title": "Title 2"}, {"title": "Title 3"}]
+
+    display_recipes(recipes)
+
+
+# Run the main function
+if __name__ == "__main__":
+    main()
