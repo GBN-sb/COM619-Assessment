@@ -27,7 +27,7 @@ def display_admin_settings():
     col4, col5, col6 = st.columns([1, 1, 1], gap="medium")
 
     # Create Admin Button
-    if col4.button("Create Admin"):
+    if col4.button("Create Admin", use_container_width=True, type="primary"):
         if admin_password == repeat_admin_password:
             st.success(f"Admin '{admin_username}, {admin_email}' created successfully.")
             # TODO Perform database operation to create admin
@@ -35,7 +35,7 @@ def display_admin_settings():
             st.error("Passwords do not match. Please try again.")
 
     # Grant Admin Access Button
-    if col5.button("Grant Admin Access"):
+    if col5.button("Grant Admin Access", use_container_width=True, type="primary"):
         if grant_email and grant_username:
             st.success(f"Admin access granted to user '{grant_username}'.")
             # TODO Perform database operation to grant admin access
@@ -43,7 +43,7 @@ def display_admin_settings():
             st.error("Please provide both email and username.")
 
     # Delete User Button
-    if col6.button("Delete User"):
+    if col6.button("Delete User", use_container_width=True, type="primary"):
         if delete_username:
             st.success(f"User '{delete_username}' deleted successfully.")
             # TODO Perform database operation to delete user

@@ -50,9 +50,9 @@ def test_display_admin_settings(setup_streamlit_mocks):
     col3.text_input.assert_any_call("Username to Delete")
 
     # Verify buttons
-    col4.button.assert_called_once_with("Create Admin")
-    col5.button.assert_called_once_with("Grant Admin Access")
-    col6.button.assert_called_once_with("Delete User")
+    col4.button.assert_called_once_with("Create Admin", use_container_width=True, type="primary")
+    col5.button.assert_called_once_with("Grant Admin Access", use_container_width=True, type="primary")
+    col6.button.assert_called_once_with("Delete User", use_container_width=True, type="primary")
 
     # Simulate button clicks and verify logic
     if col4.button.call_args == (("Create Admin",),):  # Simulate "Create Admin" button click
