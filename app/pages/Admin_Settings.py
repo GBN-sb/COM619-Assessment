@@ -29,7 +29,7 @@ def display_admin_settings():
     # Create Admin Button
     if col4.button("Create Admin"):
         if admin_password == repeat_admin_password:
-            st.success(f"Admin '{admin_username}' created successfully.")
+            st.success(f"Admin '{admin_username}, {admin_email}' created successfully.")
             # TODO Perform database operation to create admin
         else:
             st.error("Passwords do not match. Please try again.")
