@@ -51,7 +51,7 @@ def display_admin_settings():
             st.error("Please provide a username to delete.")
 
 
-def main():
+def main():  # pragma: no cover
     st.set_page_config(layout="wide")
     make_sidebar()
 
@@ -59,5 +59,5 @@ def main():
     display_admin_settings()
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     main()
