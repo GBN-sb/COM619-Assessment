@@ -80,3 +80,4 @@ def test_display_settings(setup_streamlit_mocks):
         assert new_password == "new_password"
         assert new_profile_picture is None
         assert units_option == "Metric"
+        
