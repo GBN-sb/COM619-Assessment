@@ -4,6 +4,7 @@ from navigation import make_sidebar
 
 def display_form():
     """Displays the recipe creation form and returns form inputs."""
+    st.title("🍳 Create Recipes")
     with st.form("recipe_form"):
         # Title and Difficulty fields
         col1, col2 = st.columns([2, 1], gap="small")

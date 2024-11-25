@@ -1,9 +1,9 @@
 import streamlit as st
 from navigation import make_sidebar
 
-
 def display_settings():
     """Display the settings options overlay on the current page."""
+    st.title("⚙️ Settings")
     st.write("---")
     col1, col2, col3 = st.columns([1, 1, 1], gap="medium")
 

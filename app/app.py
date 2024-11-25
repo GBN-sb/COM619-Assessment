@@ -34,7 +34,10 @@ def login_page():
             if username in usernames:
                 user_index = usernames.index(username)
                 if password == passwords[user_index]:
-                    st.session_state["logged_in"] = True
+                    if username == "admin":
+                        st.session_state["admin"] = True
+                    else:
+                        st.session_state["logged_in"] = True
                     user_role = user_types[user_index]
                     st.success(f"Logged in successfully as {user_role.capitalize()}!")
                     sleep(1)

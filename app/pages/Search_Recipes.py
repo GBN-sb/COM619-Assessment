@@ -3,6 +3,7 @@ from navigation import make_sidebar
 
 
 def display_recipe_search(recipes, available_tags):
+    st.title("🍽️ Search Recipes")
     col1, col2 = st.columns([3, 1])
     with col1:
         search_query = st.text_input("Search by title:")
