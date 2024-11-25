@@ -1,7 +1,6 @@
 import streamlit as st
 from navigation import make_sidebar
 
-make_sidebar()
 
 def display_form():
     """Displays the recipe creation form and returns form inputs."""
@@ -11,7 +10,9 @@ def display_form():
         with col1:
             title = st.text_input("Title:")
         with col2:
-            difficulty = st.slider("Difficulty (1-5):", min_value=1, max_value=5, step=1)
+            difficulty = st.slider(
+                "Difficulty (1-5):", min_value=1, max_value=5, step=1
+            )
 
         # Tags and Image fields
         tags = st.text_input("Tags:")
@@ -35,9 +36,15 @@ def display_form():
         "ingredients": ingredients,
         "steps": steps,
         "description": description,
-        "finished": finished
+        "finished": finished,
     }
 
-display_form()
 
-# TODO: Add backend processing and functionality for form_data when finished
+def main():  # pragma: no cover
+    make_sidebar()
+    form_data = display_form()
+    return form_data
+
+
+if __name__ == "__main__":  # pragma: no cover
+    main()
