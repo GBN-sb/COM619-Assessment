@@ -54,13 +54,47 @@ def test_display_admin_settings(setup_streamlit_mocks):
     col5.button.assert_called_once_with("Grant Admin Access", use_container_width=True, type="primary")
     col6.button.assert_called_once_with("Delete User", use_container_width=True, type="primary")
 
-    # Simulate button clicks and verify logic
-    if col4.button.call_args == (("Create Admin",),):  # Simulate "Create Admin" button click
-        st.success.assert_any_call("Admin 'admin_username, admin_email' created successfully.")
-    if col5.button.call_args == (("Grant Admin Access",),):  # Simulate "Grant Admin Access" button click
-        st.success.assert_any_call("Admin access granted to user 'grant_username'.")
-    if col6.button.call_args == (("Delete User",),):  # Simulate "Delete User" button click
-        st.success.assert_any_call("User 'delete_username' deleted successfully.")
-
     # Verify success is called three times because there should be 3 successes
     assert st.success.call_count == 3
+
+def test_create_admin_else_path(setup_streamlit_mocks):
+    """Test the else path for 'Create Admin' when passwords do not match."""
+    col1, _, _, col4, _, _ = setup_streamlit_mocks
+    col4.button.return_value = True  # Simulate the "Create Admin" button being clicked
+
+    # Simulate mismatched passwords
+    col1.text_input.side_effect = ["admin_email", "admin_username", "password1", "password2"]
+
+    display_admin_settings()
+
+    # Verify error message is shown
+    st.error.assert_called_once_with("Passwords do not match. Please try again.")
+
+
+def test_grant_admin_access_else_path(setup_streamlit_mocks):
+    """Test the else path for 'Grant Admin Access' when email or username is missing."""
+    _, col2, _, _, col5, _ = setup_streamlit_mocks
+    col5.button.return_value = True  # Simulate the "Grant Admin Access" button being clicked
+
+    # Simulate missing email or username
+    col2.text_input.side_effect = ["", ""]  # Empty email and username fields
+
+    display_admin_settings()
+
+    # Verify error message is shown
+    st.error.assert_called_once_with("Please provide both email and username.")
+
+
+def test_delete_user_else_path(setup_streamlit_mocks):
+    """Test the else path for 'Delete User' when username is missing."""
+    _, _, col3, _, _, col6 = setup_streamlit_mocks
+    col6.button.return_value = True  # Simulate the "Delete User" button being clicked
+
+    # Simulate missing username
+    col3.text_input.side_effect = [""]  # Empty username field
+
+    display_admin_settings()
+
+    # Verify error message is shown
+    st.error.assert_called_once_with("Please provide a username to delete.")
+
