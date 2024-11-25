@@ -62,5 +62,5 @@ def test_display_admin_settings(setup_streamlit_mocks):
     if col6.button.call_args == (("Delete User",),):  # Simulate "Delete User" button click
         st.success.assert_any_call("User 'delete_username' deleted successfully.")
 
-    # Verify success is called three times
+    # Verify success is called three times because there should be 3 successes
     assert st.success.call_count == 3
