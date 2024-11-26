@@ -3,6 +3,7 @@ from navigation import make_sidebar
 
 
 def display_recipes(recipes):
+    st.title("👨‍🍳 My Recipes")
     for recipe in recipes:
         with st.container():
             st.write(f"**{recipe['title']}**")

@@ -1,9 +1,9 @@
 import streamlit as st
 from navigation import make_sidebar
 
-
 def display_settings():
     """Display the settings options overlay on the current page."""
+    st.title("⚙️ Settings")
     st.write("---")
     col1, col2, col3 = st.columns([1, 1, 1], gap="medium")
 
@@ -46,7 +46,8 @@ def display_settings():
             # TODO Add move to admin dashboard
 
     # Save Changes Button
-    if st.button("Save Changes"):
+    st.write("")
+    if st.button("Save Changes", type="primary"):
         # Validation logic
         if (
             current_username == repeat_current_username

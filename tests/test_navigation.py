@@ -70,6 +70,7 @@ def test_sidebar_admin(mocker, setup_streamlit_mocks):
     st.page_link.assert_any_call("pages/Create_Recipes.py", label="Create Recipes", icon="🍳")
     st.page_link.assert_any_call("pages/Search_Recipes.py", label="Search Recipes", icon="🍽️")
     st.page_link.assert_any_call("pages/Settings.py", label="Settings", icon="⚙️")
+    st.page_link.assert_any_call("pages/Admin_Settings.py", label="Admin Settings", icon="🛠️")
     st.button.assert_any_call("Logout")
 
 def test_logout(mocker, setup_streamlit_mocks):

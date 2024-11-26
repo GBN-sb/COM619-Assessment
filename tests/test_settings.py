@@ -67,7 +67,7 @@ def test_display_settings(setup_streamlit_mocks):
     st.button.assert_any_call("Go to Admin Dashboard")
     
     # Check that "Save Changes" button triggered the validation logic
-    st.button.assert_any_call("Save Changes")
+    st.button.assert_any_call("Save Changes", type="primary")
 
     # Check for success message display
     st.success.assert_called_once_with("Your settings have been updated.")

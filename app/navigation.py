@@ -55,6 +55,7 @@ def make_sidebar():
             st.page_link("pages/Search_Recipes.py", label="Search Recipes", icon="🍽️")
             st.write("Options ❓")
             st.page_link("pages/Settings.py", label="Settings", icon="⚙️")
+            st.page_link("pages/Admin_Settings.py", label="Admin Settings", icon="🛠️")
 
             st.write("")
             st.write("")
