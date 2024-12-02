@@ -62,7 +62,7 @@ class CouchClient:
             return db.delete(doc['_id'], rev=doc['_rev'])
         except couchdb3.exceptions.ConflictError as e:
             print(f"Document not found: {e}")
-            return None
+            return False
     
     def create_doc(self, db_name, doc):
         db = self.client[db_name]
@@ -82,6 +82,9 @@ class CouchClient:
         except couchdb3.exceptions.ConflictError as e:
             print(f"Document conflict: {e}")
             return None
+        
+    def query_documents(self, db_name, query):
+        return self.client[db_name].find(query)
 
     
 if __name__ == '__main__':
@@ -100,6 +103,11 @@ if __name__ == '__main__':
     print("All documents in 'test_db':", client.get_all_docs(db_name))
     
     doc_id = doc['_id']
+
+    #  Test query
+    query = {'selector': {'name': 'test'}}
+    print(f"Querying documents in '{db_name}':", client.query_documents(db_name, query))
+
     print(f"Fetching document with ID '{doc_id}' from '{db_name}':", client.get_doc(db_name, doc_id))
     
     print(f"Deleting document with ID '{doc_id}' from '{db_name}':", client.delete_doc(db_name, doc_id))
