@@ -67,6 +67,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      COUCH_USER: ${{ secrets.COUCH_USER }}
+      COUCH_PASSWORD: ${{ secrets.COUCH_PASSWORD }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

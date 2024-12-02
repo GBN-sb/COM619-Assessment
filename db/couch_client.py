@@ -18,15 +18,15 @@ class CouchClient:
 
 
     def _get_env_vars(self):
-        if 'COUCHDB_USER' in os.environ:
-            self.user = os.environ['COUCHDB_USER']
+        if 'COUCH_USER' in os.environ:
+            self.user = os.environ['COUCH_USER']
         
-        if 'COUCHDB_PASSWORD' in os.environ:
-            self.password = os.environ['COUCHDB_PASSWORD']
-        if 'COUCHDB_URL' in os.environ:
-            self.url = os.environ['COUCHDB_URL']
-        if 'COUCHDB_PORT' in os.environ:
-            self.port = os.environ['COUCHDB_PORT']
+        if 'COUCH_PASSWORD' in os.environ:
+            self.password = os.environ['COUCH_PASSWORD']
+        if 'COUCH_URL' in os.environ:
+            self.url = os.environ['COUCH_URL']
+        if 'COUCH_PORT' in os.environ:
+            self.port = os.environ['COUCH_PORT']
             try:
                 self.port = int(self.port)
             except ValueError:
