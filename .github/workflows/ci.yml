@@ -42,9 +42,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
-      - name: expose variables
-        run: echo "COUCH_USER=${{ secrets.COUCH_USER }}"
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -77,6 +74,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+              
+      - name: expose variables
+        run: echo "COUCH_USER=${{ secrets.COUCH_USER }}"
 
       - name: Set up Python
         uses: actions/setup-python@v5
