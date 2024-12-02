@@ -4,4 +4,4 @@ CouchDB
 jsonschema
 bcrypt
 pytest
-codecov
+pytest-cov
