@@ -1,6 +1,6 @@
 streamlit
 python-dotenv
-CouchDB
+couchdb3
 jsonschema
 bcrypt
 pytest
