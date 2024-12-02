@@ -18,21 +18,13 @@ class CouchClient:
 
 
     def _get_env_vars(self):
-        if 'COUCH_USER' in os.environ:
-            self.user = os.environ['COUCH_USER']
+        self.url = os.getenv('COUCHDB_URL')
+        self.port = os.getenv('COUCHDB_PORT')
+        self.user = os.getenv('COUCHDB_USER')
+        self.password = os.getenv('COUCHDB_PASSWORD')
         
-        if 'COUCH_PASSWORD' in os.environ:
-            self.password = os.environ['COUCH_PASSWORD']
-        if 'COUCH_URL' in os.environ:
-            self.url = os.environ['COUCH_URL']
-        if 'COUCH_PORT' in os.environ:
-            self.port = os.environ['COUCH_PORT']
-            try:
-                self.port = int(self.port)
-            except ValueError:
-                self.port = 5984
-        return hasattr(self, 'user') and hasattr(self, 'password') and hasattr(self, 'url') and hasattr(self, 'port')
-    
+        return all([self.url, self.port, self.user, self.password])
+
     def get_all_dbs(self):
         return self.client.all_dbs()
     
