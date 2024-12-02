@@ -18,10 +18,10 @@ class CouchClient:
 
 
     def _get_env_vars(self):
-        self.url = os.getenv('COUCHDB_URL')
-        self.port = os.getenv('COUCHDB_PORT')
-        self.user = os.getenv('COUCHDB_USER')
-        self.password = os.getenv('COUCHDB_PASSWORD')
+        self.url = os.getenv('COUCH_URL')
+        self.port = os.getenv('COUCH_PORT')
+        self.user = os.getenv('COUCH_USER')
+        self.password = os.getenv('COUCH_PASSWORD')
         
         return all([self.url, self.port, self.user, self.password])
 
