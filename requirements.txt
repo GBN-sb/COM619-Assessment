@@ -2,3 +2,5 @@ streamlit
 python-dotenv
 CouchDB
 jsonschema
+bcrypt
+pytest
