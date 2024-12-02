@@ -3,5 +3,5 @@ python-dotenv
 couchdb3
 jsonschema
 bcrypt
-pytest
+pytest-mock
 pytest-cov
