@@ -83,6 +83,7 @@ jobs:
 
   test:
     name: Run Unit Tests
+    needs: [lint, secrets-scan, format]
     runs-on: self-hosted
     steps:
       - name: Checkout code
@@ -124,3 +125,29 @@ jobs:
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+
+  badges:
+    name: Update Status Badges
+    needs: [lint, secrets-scan, format, test]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Generate Badges
+        run: |
+          LINT_STATUS=${{ needs.lint.result == 'success' && 'passing' || 'failing' }}
+          SECRETS_STATUS=${{ needs.secrets-scan.result == 'success' && 'passing' || 'failing' }}
+
+          BADGES="[![Lint Status](https://img.shields.io/badge/Lint-$LINT_STATUS-brightgreen?style=flat-square)]() [![Secrets Scan Status](https://img.shields.io/badge/Secrets-$SECRETS_STATUS-brightgreen?style=flat-square)]()"
+
+          sed -i '/<!-- Badges -->/c\<!-- Badges -->\n$BADGES' README.md
+
+      - name: Commit and Push Updates
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          git add README.md
+          git commit -m "Update status badges"
+          git push
