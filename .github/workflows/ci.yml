@@ -9,7 +9,7 @@ on:
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout code
@@ -37,7 +37,7 @@ jobs:
         run: ruff check app/
 
   format:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout code
@@ -65,11 +65,14 @@ jobs:
         run: ruff format app/
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+              
+      - name: expose variables
+        run: echo "COUCH_USER=${{ secrets.COUCH_USER }}"
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -87,9 +90,14 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pytest-mock pytest-cov streamlit
+          pip install -r requirements.txt
 
       - name: Run tests
+        env:
+          COUCH_URL: ${{ vars.COUCH_URL }}
+          COUCH_PORT: ${{ vars.COUCH_PORT }}
+          COUCH_USER: ${{ secrets.COUCH_USER }}
+          COUCH_PASSWORD: ${{ secrets.COUCH_PASSWORD }}
         run: pytest --cov --junitxml=junit.xml -o junit_family=legacy
 
       - name: Upload coverage to Codecov

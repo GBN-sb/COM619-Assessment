@@ -1,0 +1,7 @@
+streamlit
+python-dotenv
+couchdb3
+jsonschema
+bcrypt
+pytest-mock
+pytest-cov
