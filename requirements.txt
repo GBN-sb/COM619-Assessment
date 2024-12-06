@@ -5,3 +5,6 @@ jsonschema
 bcrypt
 pytest-mock
 pytest-cov
+ruff
+requests
+pip-audit
