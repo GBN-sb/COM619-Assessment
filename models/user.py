@@ -18,8 +18,9 @@ class User:
         profile_picture: Optional[str] = None,
         role: Optional[str] = "user",
         bio: Optional[str] = None,
+        id: int = 0,
     ):
-        self.id = self.generate_id()
+        self.id = id if id > 0 else self._generate_id()
         self.name = name
         self.email = email
         self.password_hash = self.hash_password(password)
@@ -30,7 +31,7 @@ class User:
         self.validate()
 
     @classmethod
-    def generate_id(cls) -> int:
+    def _generate_id(cls) -> int:
         """
         Generates a unique, sequential integer ID.
         """
@@ -92,6 +93,7 @@ class User:
             raise ValueError(f"Missing required fields: {required_fields - data.keys()}")
 
         user = User(
+            id=data["id"],
             name=data["name"],
             email=data["email"],
             password="placeholder",
@@ -99,28 +101,5 @@ class User:
             role=data.get("role", "user"),
             bio=data.get("bio"),
         )
-        user.id = data["id"]
         user.password_hash = data["passwordHash"] 
         return user
-
-
-if __name__ == "__main__":
-    try:
-        user = User(
-            name="John",
-            email="john@doe.com",
-            password="password123",
-            role="admin",
-            bio="Hello, world!"
-        )
-        print("User created:", user.to_dict())
-
-        print("Password verification:",
-              User.verify_password("password123", user.password_hash))
-
-        user_data = user.to_dict()
-        restored_user = User.from_dict(user_data)
-        print("Restored User:", restored_user.to_dict())
-
-    except ValueError as e:
-        print(f"Error: {e}")

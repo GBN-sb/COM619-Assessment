@@ -5,67 +5,96 @@ from ..couch_client import CouchClient
 
 class UserDAO:
 
-    def __init__(self):
+    def __init__(self, db_name="users") -> None:
         """
-        Initializes the DAO with a CouchDBManager instance.
+        Initialises the DAO with a CouchDBManager instance.
         """
-        self.db_name = "users"
-        self.manager = CouchClient()
+        self.db_name = db_name
+        self.client = CouchClient()
         
 
-    def create_user(self, user: User) -> Tuple[str, bool, str]|None:
+    def add_user(self, user: User) -> bool:
         """
-        Creates a new user in the database.
+        Adds a user to the database.
         """
-        if self.get_user_by_email(user.email):
-            raise ValueError("A user with this email already exists.")
-        user_data = user.to_dict()
-        return self.manager.create_doc(self.db_name, user_data)
-
-    def get_user_by_id(self, user_id: int) -> Optional[User]:
-        """
-        Retrieves a user by their ID.
-        """
-        doc = self.manager.get_doc(self.db_name, user_id)
-        return User.from_dict(doc) if doc else None
-
+        user_dict = user.to_dict()
+        try:
+            result = self.client.create_doc(self.db_name, user_dict)
+            if result:
+                return result[1]
+            return False
+        except Exception as e:
+            raise e
+        
     def get_user_by_email(self, email: str) -> Optional[User]:
         """
-        Retrieves a user by their email.
+        Retrieve a user by their email.
         """
-        query = {"selector": {"email": email}}
-        results = self.manager.query_documents(self.db_name, query)
-        if results:
-            return User.from_dict(results[0])
-        return None
-
-    def get_users(self, query_params: Optional[Dict] = None) -> List[User]:
+        query = {"email": email}
+        try:
+            result = self.client.query_documents(self.db_name, query)
+            if result:
+                return User.from_dict(result[0])
+            return None
+        except Exception as e:
+            print(f"Error fetching user by email: {e}")
+            return None
+        
+    def update_user_role(self, user_id: int, new_role: str) -> bool:
         """
-        Retrieves users based on optional query parameters.
-        """
-        query = {"selector": query_params or {}}
-        results = self.manager.query_documents(self.db_name, query)
-        return [User.from_dict(doc) for doc in results]
-
-    def update_user(self, user_id: int, updated_data: Dict) -> bool:
-        """
-        Updates a user's information.
+        Update a user's role by their ID.
         """
         try:
-            self.manager.update_doc(self.db_name, user_id, updated_data)
-            return True
-        except KeyError:
-            raise ValueError("User not found.")
+            # Find the user document by ID
+            user_doc = self.client.query_documents(self.db_name, {"id": user_id})[0]
+            if not user_doc:
+                print(f"User with ID {user_id} not found.")
+                return False
+
+            user_doc["role"] = new_role
+            doc_id = user_doc["_id"]
+            result = self.client.update_doc(self.db_name, doc_id, user_doc)
+            return bool(result)
         except Exception as e:
-            raise RuntimeError(f"Error updating user: {e}")
+            print(f"Error updating user role: {e}")
+            return False
+        
+    def get_user_by_id(self, user_id: int) -> Optional[User]:
+        """
+        Retrieve a user by their ID.
+        """
+        user_doc = self.client.get_doc(self.db_name, str(user_id))
+        if not user_doc:
+            return None
+        return User.from_dict(user_doc)
+    
+    def get_all_users(self) -> list[User]:
+        """
+        Retrieve all users from the database.
+        """
+        try:
+            docs = self.client.get_all_docs(self.db_name)
+            print(docs)
+
+            users = [User.from_dict(doc) for doc in docs]
+            return users
+        except Exception as e:
+            print(f"Error fetching all users: {e}")
+            return []
 
     def delete_user(self, user_id: int) -> bool:
         """
-        Deletes a user by their ID.
+        Delete a user by their ID.
         """
         try:
-            return self.manager.delete_doc(self.db_name, user_id)
-        except KeyError:
-            raise ValueError("User not found.")
+            # Find the user document by ID
+            user_doc = self.client.query_documents(self.db_name, {"id": user_id})[0]
+            if not user_doc:
+                print(f"User with ID {user_id} not found.")
+                return False
+            doc_id = user_doc["_id"]
+            result = self.client.delete_doc(self.db_name, doc_id)
+            return result
         except Exception as e:
-            raise RuntimeError(f"Error deleting user: {e}")
+            print(f"Error deleting user: {e}")
+            return False

@@ -42,7 +42,9 @@ class CouchClient:
         return self.client.delete(db_name)
     
     def get_all_docs(self, db_name):
-        return self.client[db_name].all_docs()
+        all_docs = self.client[db_name].all_docs()
+        doc_ids = [doc['id'] for doc in all_docs['rows']]
+        return [self.get_doc(db_name, doc_id) for doc_id in doc_ids]
     
     def get_doc(self, db_name, doc_id):
         return self.client[db_name][doc_id]
@@ -74,35 +76,6 @@ class CouchClient:
         except couchdb3.exceptions.ConflictError as e:
             print(f"Document conflict: {e}")
             return None
-        
+
     def query_documents(self, db_name, query):
-        return self.client[db_name].find(query)
-
-    
-if __name__ == '__main__':
-    client = CouchClient()
-    print("Databases:", client.get_all_dbs())
-    
-    db_name = 'test_db'
-    print(f"Creating database '{db_name}'...")
-    client.create_db(db_name)
-    
-    print("Databases:", client.get_all_dbs())
-    
-    doc = {'name': 'test'}
-    print(f"Creating document in '{db_name}':", client.create_doc(db_name, doc))
-    
-    print("All documents in 'test_db':", client.get_all_docs(db_name))
-    
-    doc_id = doc['_id']
-
-    #  Test query
-    query = {'selector': {'name': 'test'}}
-    print(f"Querying documents in '{db_name}':", client.query_documents(db_name, query))
-
-    print(f"Fetching document with ID '{doc_id}' from '{db_name}':", client.get_doc(db_name, doc_id))
-    
-    print(f"Deleting document with ID '{doc_id}' from '{db_name}':", client.delete_doc(db_name, doc_id))
-    
-    print(f"Deleting database '{db_name}':", client.delete_db(db_name))
-    print("Databases:", client.get_all_dbs())
+        return self.client[db_name].find(query)["docs"]
