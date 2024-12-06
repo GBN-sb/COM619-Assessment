@@ -3,11 +3,9 @@
 <!-- CodeCov Badge -->
 [![codecov](https://codecov.io/github/GBN-sb/COM619-Assessment/graph/badge.svg?token=C932AA571P)](https://codecov.io/github/GBN-sb/COM619-Assessment)
 
-<!-- Lint Badge -->
-[![Lint Status](https://github.com/GBN-sb/COM619-Assessment/actions/workflows/lint.yml/badge.svg)](https://github.com/GBN-sb/COM619-Assessment/actions/workflows/lint.yml)
-
-<!-- Secret Scan Badge -->
-[![Secrets Scan Status](https://github.com/GBN-sb/COM619-Assessment/actions/workflows/secrets-scan.yml/badge.svg)](https://github.com/GBN-sb/COM619-Assessment/actions/workflows/secrets-scan.yml)
+<!-- Badges -->
+[![Lint Status](https://img.shields.io/badge/Lint-passing-brightgreen?style=flat-square)]()
+[![Secrets Scan Status](https://img.shields.io/badge/Secrets-passing-brightgreen?style=flat-square)]()
 
 
 # Project Documentation (AE1):

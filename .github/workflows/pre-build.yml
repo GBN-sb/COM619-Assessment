@@ -38,7 +38,7 @@ jobs:
           pip install ruff
 
       - name: Run Ruff Lint
-        run: ruff check app/ --show-files --exit-zero
+        run: ruff check app/ --show-source --exit-zero
 
   secrets-scan:
     name: Scan for Secrets
@@ -63,17 +63,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Update README with Lint Badge
-        if: ${{ needs.lint.result == 'success' }}
+      - name: Generate Badges
         run: |
-          LINT_BADGE="[![Lint Status](https://github.com/${{ github.repository }}/actions/workflows/lint.yml/badge.svg)](https://github.com/${{ github.repository }}/actions/workflows/lint.yml)"
-          sed -i '/<!-- Lint Badge -->/c\<!-- Lint Badge -->\n$LINT_BADGE' README.md
+          LINT_STATUS=${{ needs.lint.result == 'success' && 'passing' || 'failing' }}
+          SECRETS_STATUS=${{ needs.secrets-scan.result == 'success' && 'passing' || 'failing' }}
 
-      - name: Update README with Secret Scan Badge
-        if: ${{ needs.secrets-scan.result == 'success' }}
-        run: |
-          SECRETS_BADGE="[![Secrets Scan Status](https://github.com/${{ github.repository }}/actions/workflows/secrets-scan.yml/badge.svg)](https://github.com/${{ github.repository }}/actions/workflows/secrets-scan.yml)"
-          sed -i '/<!-- Secret Scan Badge -->/c\<!-- Secret Scan Badge -->\n$SECRETS_BADGE' README.md
+          BADGES="[![Lint Status](https://img.shields.io/badge/Lint-$LINT_STATUS-brightgreen?style=flat-square)]() [![Secrets Scan Status](https://img.shields.io/badge/Secrets-$SECRETS_STATUS-brightgreen?style=flat-square)]()"
+
+          sed -i '/<!-- Badges -->/c\<!-- Badges -->\n$BADGES' README.md
 
       - name: Commit and Push Updates
         run: |
