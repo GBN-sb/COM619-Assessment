@@ -1,6 +1,14 @@
 ﻿# COM619-Assessment
 
+<!-- CodeCov Badge -->
 [![codecov](https://codecov.io/github/GBN-sb/COM619-Assessment/graph/badge.svg?token=C932AA571P)](https://codecov.io/github/GBN-sb/COM619-Assessment)
+
+<!-- Lint Badge -->
+[![Lint Status](https://codecov.io/github/GBN-sb/COM619-Assessment/lint.yml/badge.svg?token=C932AA571P)](https://codecov.io/github/GBN-sb/COM619-Assessment)
+
+<!-- Secret Scan Badge -->
+[![Secrets Scan Status](https://codecov.io/github/GBN-sb/COM619-Assessment/secrets-scan.yml/badge.svg?token=C932AA571P)](https://codecov.io/github/GBN-sb/COM619-Assessment)
+
 
 # Project Documentation (AE1):
 
