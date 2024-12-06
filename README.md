@@ -4,10 +4,10 @@
 [![codecov](https://codecov.io/github/GBN-sb/COM619-Assessment/graph/badge.svg?token=C932AA571P)](https://codecov.io/github/GBN-sb/COM619-Assessment)
 
 <!-- Lint Badge -->
-[![Lint Status](https://codecov.io/github/GBN-sb/COM619-Assessment/lint.yml/badge.svg?token=C932AA571P)](https://codecov.io/github/GBN-sb/COM619-Assessment)
+[![Lint Status](https://github.com/GBN-sb/COM619-Assessment/actions/workflows/lint.yml/badge.svg)](https://github.com/GBN-sb/COM619-Assessment/actions/workflows/lint.yml)
 
 <!-- Secret Scan Badge -->
-[![Secrets Scan Status](https://codecov.io/github/GBN-sb/COM619-Assessment/secrets-scan.yml/badge.svg?token=C932AA571P)](https://codecov.io/github/GBN-sb/COM619-Assessment)
+[![Secrets Scan Status](https://github.com/GBN-sb/COM619-Assessment/actions/workflows/secrets-scan.yml/badge.svg)](https://github.com/GBN-sb/COM619-Assessment/actions/workflows/secrets-scan.yml)
 
 
 # Project Documentation (AE1):
