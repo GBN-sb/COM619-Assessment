@@ -143,11 +143,3 @@ jobs:
           BADGES="[![Lint Status](https://img.shields.io/badge/Lint-$LINT_STATUS-brightgreen?style=flat-square)]() [![Secrets Scan Status](https://img.shields.io/badge/Secrets-$SECRETS_STATUS-brightgreen?style=flat-square)]()"
 
           sed -i '/<!-- Badges -->/c\<!-- Badges -->\n$BADGES' README.md
-
-      - name: Commit and Push Updates
-        run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "actions@github.com"
-          git add README.md
-          git commit -m "Update status badges"
-          git push
