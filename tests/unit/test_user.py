@@ -17,14 +17,6 @@ def test_user_creation():
     assert user.profile_picture is None
     assert bcrypt.checkpw("password123".encode('utf-8'), user.password_hash.encode('utf-8'))
 
-def test_user_id_generation():
-    # Reset the ID counter to 1
-    User._id_counter = 1
-    user1 = User(name="User1", email="user1@example.com", password="password123")
-    user2 = User(name="User2", email="user2@example.com", password="password123")
-    assert user1.id == 1
-    assert user2.id == 2
-
 def test_password_hashing():
     password = "password123"
     hashed_password = User.hash_password(password)

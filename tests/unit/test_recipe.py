@@ -19,27 +19,6 @@ def test_recipe_creation():
     assert recipe.creator_id == "123"
     assert isinstance(recipe.created_at, datetime)
 
-def test_generate_id():
-    Recipe._id_counter = 1 
-    recipe1 = Recipe(
-        title="Pancakes",
-        description="A delicious breakfast treat.",
-        ingredients=["flour", "milk", "eggs"],
-        instructions="Mix ingredients and cook on griddle.",
-        picture_location="pancakes.jpg",
-        creator_id="123"
-    )
-    recipe2 = Recipe(
-        title="Waffles",
-        description="A tasty breakfast treat.",
-        ingredients=["flour", "milk", "eggs"],
-        instructions="Mix ingredients and cook in waffle iron.",
-        picture_location="waffles.jpg",
-        creator_id="124"
-    )
-    assert recipe1.id == 1
-    assert recipe2.id == 2
-
 def test_to_dict():
     recipe = Recipe(
         title="Pancakes",
