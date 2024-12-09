@@ -2,6 +2,9 @@ import streamlit as st
 from navigation import make_sidebar
 from db.dao.userDAO import UserDAO
 from models.user import User
+import os
+
+TEST_MODE = os.getenv('TEST_MODE')
 
 def display_admin_settings():
     """Display the admin settings options overlay on the current page."""
@@ -9,8 +12,7 @@ def display_admin_settings():
     st.write("---")
     col1, col2, col3 = st.columns([1, 1, 1], gap="medium")
 
-    user_dao = UserDAO()
-    #user_dao = UserDAO(db_name="test_users")
+    user_dao = UserDAO(db_name="test_users" if TEST_MODE else "users")
 
     # Create Admin
     col1.subheader("Create Admin")
@@ -58,9 +60,7 @@ def display_admin_settings():
         if grant_email and grant_username:
             try:
                 # Get the user by email
-                print(grant_email)
                 user = user_dao.get_user_by_email(grant_email)
-                print(user.id)
                 if user:
                     success = user_dao.update_user_role(user.id, "admin")
                     print(success)

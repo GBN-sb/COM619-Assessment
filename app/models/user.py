@@ -19,9 +19,9 @@ class User:
         profile_picture: Optional[str] = None,
         role: Optional[str] = "user",
         bio: Optional[str] = None,
-        id: str = None,
+        id: int = 0,
     ):
-        self.id = id if id != None else str(uuid.uuid4())
+        self.id = id if id > 0 else uuid.uuid4().int
         self.name = name
         self.email = email
         self.password_hash = self.hash_password(password)

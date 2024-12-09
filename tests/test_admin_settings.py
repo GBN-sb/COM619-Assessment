@@ -85,16 +85,18 @@ def test_create_admin_success(setup_streamlit_mocks, user_dao):
     st.success.assert_called_once_with("Admin 'adminuser' created successfully.")
 
 
-def test_create_admin_password_mismatch(setup_streamlit_mocks):
+def test_create_admin_password_mismatch(setup_streamlit_mocks, mocker):
     """Test the else path for 'Create Admin' when passwords do not match."""
     col1, _, _, col4, _, _ = setup_streamlit_mocks
     col4.button.return_value = True  # Simulate the "Create Admin" button click
 
     col1.text_input.side_effect = ["admin@example.com", "adminuser", "password1", "password2"]
-
+    mock_error = mocker.patch("streamlit.error")
     display_admin_settings()
-
-    st.error.assert_called_once_with("Passwords do not match. Please try again.")
+    assert mock_error.call_count == 3, "st.error should be called 3 times."
+    
+    # Verify the error messages passed to `st.error`
+    mock_error.assert_any_call("Passwords do not match. Please try again.")
 
 
 def test_grant_admin_access_success(setup_streamlit_mocks, user_dao, mocker):

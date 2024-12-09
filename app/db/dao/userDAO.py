@@ -32,9 +32,7 @@ class UserDAO:
         """
         query = {"email": email}
         try:
-            print(query)
             result = self.client.query_documents(self.db_name, query)
-            print(result)
             if result:
                 return User.from_dict(result[0])
             return None

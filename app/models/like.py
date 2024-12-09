@@ -1,10 +1,11 @@
 from db.dao.userDAO import UserDAO
 from db.dao.recipeDAO import RecipeDAO
+import uuid
 
 class Like:
     _id_counter = 1
     def __init__(self, user_id, recipe_id, id=0):
-        self.id = id if id > 0 else self._generate_id()
+        self.id = id if id > 0 else uuid.uuid4().int
         self.user_id = user_id
         self.recipe_id = recipe_id
 
