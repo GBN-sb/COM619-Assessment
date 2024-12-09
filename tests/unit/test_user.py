@@ -1,5 +1,5 @@
 import pytest
-from models.user import User
+from app.models.user import User
 import bcrypt
 
 def test_user_creation():

@@ -1,6 +1,6 @@
 import pytest
 from datetime import datetime
-from models.comment import Comment
+from app.models.comment import Comment
 from unittest.mock import patch
 
 def test_comment_creation():

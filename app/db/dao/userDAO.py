@@ -32,7 +32,9 @@ class UserDAO:
         """
         query = {"email": email}
         try:
+            print(query)
             result = self.client.query_documents(self.db_name, query)
+            print(result)
             if result:
                 return User.from_dict(result[0])
             return None
@@ -54,7 +56,7 @@ class UserDAO:
             user_doc["role"] = new_role
             doc_id = user_doc["_id"]
             result = self.client.update_doc(self.db_name, doc_id, user_doc)
-            return bool(result)
+            return result[1]
         except Exception as e:
             print(f"Error updating user role: {e}")
             return False
@@ -74,7 +76,7 @@ class UserDAO:
         """
         try:
             docs = self.client.get_all_docs(self.db_name)
-            print(docs)
+            #print(docs)
 
             users = [User.from_dict(doc) for doc in docs]
             return users

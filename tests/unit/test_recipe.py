@@ -1,6 +1,6 @@
 import pytest
 from datetime import datetime
-from models.recipe import Recipe
+from app.models.recipe import Recipe
 
 def test_recipe_creation():
     recipe = Recipe(

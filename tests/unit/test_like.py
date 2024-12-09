@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import patch, MagicMock
-from models.like import Like
+from app.models.like import Like
 
 def test_like_initialization():
     like = Like(id=1, user_id=2, recipe_id=3)

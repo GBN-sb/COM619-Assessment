@@ -1,5 +1,6 @@
 import bcrypt
 import re
+import uuid
 from typing import Optional
 
 
@@ -18,9 +19,9 @@ class User:
         profile_picture: Optional[str] = None,
         role: Optional[str] = "user",
         bio: Optional[str] = None,
-        id: int = 0,
+        id: str = None,
     ):
-        self.id = id if id > 0 else self._generate_id()
+        self.id = id if id != None else str(uuid.uuid4())
         self.name = name
         self.email = email
         self.password_hash = self.hash_password(password)

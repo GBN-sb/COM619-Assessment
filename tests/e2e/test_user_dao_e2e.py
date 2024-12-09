@@ -1,7 +1,7 @@
 import pytest
-from db.dao.userDAO import UserDAO
-from models.user import User
-from db.couch_client import CouchClient
+from app.db.dao.userDAO import UserDAO
+from app.models.user import User
+from app.db.couch_client import CouchClient
 
 @pytest.fixture(scope="module")
 def couch_client():
