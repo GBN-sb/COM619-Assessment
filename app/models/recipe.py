@@ -4,10 +4,11 @@ from db.dao.userDAO import UserDAO
 
 class Recipe:
 
-    def __init__(self, title, description, ingredients, instructions, picture_location, creator_id, id=0):
+    def __init__(self, title, description, tags, ingredients, instructions, picture_location, creator_id, id=0):
         self.id = id if id > 0 else uuid.uuid4().int
         self.title = title
         self.description = description
+        self.tags = tags
         self.ingredients = ingredients
         self.instructions = instructions
         self.picture_location = picture_location
@@ -26,6 +27,7 @@ class Recipe:
             "id": self.id,
             "title": self.title,
             "description": self.description,
+            "tags": self.tags,
             "ingredients": self.ingredients,
             "instructions": self.instructions,
             "pictureLocation": self.picture_location,
@@ -35,7 +37,7 @@ class Recipe:
     
     @staticmethod
     def from_dict(data: dict) -> "Recipe":
-        required_fields = {"id", "title", "description", "ingredients", "instructions", "pictureLocation", "creatorId", "createdAt"}
+        required_fields = {"id", "title", "description", "tags", "ingredients", "instructions", "pictureLocation", "creatorId", "createdAt"}
         if not required_fields.issubset(data.keys()):
             raise ValueError(f"Missing required fields: {required_fields - data.keys()}")
         
@@ -43,6 +45,7 @@ class Recipe:
             id=data["id"],
             title=data["title"],
             description=data["description"],
+            tags=data["tags"],
             ingredients=data["ingredients"],
             instructions=data["instructions"],
             picture_location=data["pictureLocation"],

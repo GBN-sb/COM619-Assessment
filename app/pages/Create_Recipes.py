@@ -1,23 +1,37 @@
 import streamlit as st
 from navigation import make_sidebar
+from db.dao.recipeDAO import RecipeDAO
+from db.dao.userDAO import UserDAO
+from models.recipe import Recipe
+import os
+import dotenv
 
+dotenv.load_dotenv()
+RUN_ENV = os.getenv('RUN_ENV')
+
+def get_dao(db_base_name):
+    if RUN_ENV == "1":
+        db_name=f"{db_base_name}"
+        return db_name
+    if RUN_ENV == "2":
+        db_name=f"test_{db_base_name}"
+        return db_name
+    if RUN_ENV == "3":
+        db_name=f"dev_{db_base_name}"
+        return db_name
+
+recipe_dao = RecipeDAO(db_name=get_dao("recipes"))
+user_dao = UserDAO(db_name="users")
 
 def display_form():
     """Displays the recipe creation form and returns form inputs."""
     st.title("🍳 Create Recipes")
     with st.form("recipe_form"):
-        # Title and Difficulty fields
-        col1, col2 = st.columns([2, 1], gap="small")
-        with col1:
-            title = st.text_input("Title:")
-        with col2:
-            difficulty = st.slider(
-                "Difficulty (1-5):", min_value=1, max_value=5, step=1
-            )
+        # Title
+        title = st.text_input("Title:")
 
         # Tags and Image fields
         tags = st.text_input("Tags:")
-        image = st.file_uploader("Image:", type=["jpg", "jpeg", "png"])
 
         # Ingredients and Steps fields
         ingredients = st.text_area("Ingredients:", height=100)
@@ -31,20 +45,41 @@ def display_form():
 
     return {
         "title": title,
-        "difficulty": difficulty,
+        "description": description,
         "tags": tags,
-        "image": image,
         "ingredients": ingredients,
         "steps": steps,
-        "description": description,
         "finished": finished,
     }
 
 
 def main():  # pragma: no cover
     make_sidebar()
+    # Display the form and get user input
     form_data = display_form()
-    return form_data
+
+    creator_id = st.session_state.user.id
+
+    if form_data["finished"]:
+        # Create a Recipe instance
+        recipe = Recipe(
+            title=form_data["title"],
+            description=form_data["description"],
+            tags=form_data["tags"],
+            ingredients=form_data["ingredients"],
+            instructions=form_data["steps"],
+            picture_location="db\\profile_pics\\no_pfp.png",
+            creator_id=creator_id
+        )
+
+        # Add the recipe to the database
+        result = recipe_dao.create_recipe(recipe)
+
+        # Provide feedback to the user
+        if result:
+            st.success("Recipe added successfully!")
+        else:
+            st.error("An error occurred while adding the recipe. Please try again.")
 
 
 if __name__ == "__main__":  # pragma: no cover

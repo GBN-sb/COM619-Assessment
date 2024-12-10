@@ -48,6 +48,7 @@ def login_page():
                     else:
                         st.session_state["logged_in"] = True
                     st.success(f"Logged in successfully as {user.role.capitalize()}!")
+                    st.session_state.user = user
                     sleep(1)
                     st.switch_page("pages/Homepage.py")  # Switch to the Homepage
                 else:
