@@ -5,6 +5,23 @@ from unittest.mock import MagicMock
 from app.db.dao.userDAO import UserDAO
 from app.models.user import User
 from app.db.couch_client import CouchClient
+import os
+import dotenv
+
+dotenv.load_dotenv()
+RUN_ENV = os.getenv('RUN_ENV')
+
+def get_dao(db_base_name):
+    print(RUN_ENV)
+    if RUN_ENV == "1":
+        db_name=f"{db_base_name}"
+        return db_name
+    if RUN_ENV == "2":
+        db_name=f"test_{db_base_name}"
+        return db_name
+    if RUN_ENV == "3":
+        db_name=f"dev_{db_base_name}"
+        return db_name
 
 @pytest.fixture(scope="module")
 def couch_client():
@@ -12,13 +29,13 @@ def couch_client():
     client = CouchClient()
     yield client  # Provide the fixture to the test
     # Teardown: Cleanup after tests
-    client.delete_db("test_users")
+    client.delete_db(get_dao("users"))
 
 @pytest.fixture(scope="module")
 def user_dao(couch_client):
     """Fixture for initializing the UserDAO with a test database."""
-    dao = UserDAO(db_name="test_users")
-    couch_client.create_db("test_users")
+    dao = UserDAO(db_name=get_dao("users"))
+    couch_client.create_db(get_dao("users"))
     return dao
 
 @pytest.fixture
@@ -107,7 +124,6 @@ def test_grant_admin_access_success(setup_streamlit_mocks, user_dao, mocker):
     col2.text_input.side_effect = ["grant@example.com", "grantuser"]
 
     new_user=User(name="grantuser", email="grant@example.com", password="password", role="user", bio="test user", profile_picture="https://example.com/profile.jpg")
-    user_dao = UserDAO(db_name="test_users")
     user_dao.add_user(new_user)
     display_admin_settings()
     

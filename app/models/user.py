@@ -9,7 +9,6 @@ class User:
     User class implementing schema with secure password handling, role validation, and unique ID management.
     """
 
-    _id_counter = 1
 
     def __init__(
         self,
@@ -30,15 +29,6 @@ class User:
         self.bio = bio
 
         self.validate()
-
-    @classmethod
-    def _generate_id(cls) -> int:
-        """
-        Generates a unique, sequential integer ID.
-        """
-        id_value = cls._id_counter
-        cls._id_counter += 1
-        return id_value
 
     @staticmethod
     def hash_password(password: str) -> str:

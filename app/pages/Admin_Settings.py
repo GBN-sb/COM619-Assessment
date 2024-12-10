@@ -3,16 +3,30 @@ from navigation import make_sidebar
 from db.dao.userDAO import UserDAO
 from models.user import User
 import os
+import dotenv
 
-TEST_MODE = os.getenv('TEST_MODE')
+dotenv.load_dotenv()
+RUN_ENV = os.getenv('RUN_ENV')
+
+def get_dao(db_base_name):
+    print(RUN_ENV)
+    if RUN_ENV == "1":
+        db_name=f"{db_base_name}"
+        return db_name
+    if RUN_ENV == "2":
+        db_name=f"test_{db_base_name}"
+        return db_name
+    if RUN_ENV == "3":
+        db_name=f"dev_{db_base_name}"
+        return db_name
+
+user_dao = UserDAO(db_name=get_dao("users"))
 
 def display_admin_settings():
     """Display the admin settings options overlay on the current page."""
     st.title("🛠️ Admin Settings")
     st.write("---")
     col1, col2, col3 = st.columns([1, 1, 1], gap="medium")
-
-    user_dao = UserDAO(db_name="test_users" if TEST_MODE else "users")
 
     # Create Admin
     col1.subheader("Create Admin")

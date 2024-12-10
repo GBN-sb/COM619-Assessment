@@ -1,12 +1,26 @@
 import streamlit as st
 import os
+import dotenv
 from time import sleep
-from db.dao.userDAO import UserDAO
 from models.user import User
+from db.dao.userDAO import UserDAO
 
-TEST_MODE = os.getenv('TEST_MODE')
+dotenv.load_dotenv()
+RUN_ENV = os.getenv('RUN_ENV')
 
-# Initialize UserDAO
+def get_dao(db_base_name):
+    print(RUN_ENV)
+    if RUN_ENV == "1":
+        db_name=f"{db_base_name}"
+        return db_name
+    if RUN_ENV == "2":
+        db_name=f"test_{db_base_name}"
+        return db_name
+    if RUN_ENV == "3":
+        db_name=f"dev_{db_base_name}"
+        return db_name
+
+user_dao = UserDAO(db_name=get_dao("users"))
 
 # Page setup
 st.set_page_config(page_title="Login/Signup", page_icon="🔐", layout="centered")
@@ -16,7 +30,6 @@ st.markdown("---")  # Divider for better separation
 
 # Login Page
 def login_page():
-    user_dao = UserDAO(db_name="test_users" if TEST_MODE else "users")
     st.header("Login")
     st.markdown("### Please log in to continue.")
     
@@ -59,7 +72,6 @@ def login_page():
 
 # Signup Page
 def signup_page():
-    user_dao = UserDAO(db_name="test_users" if TEST_MODE else "users")
     st.header("Sign Up")
     st.markdown("### Create a new account.")
     
