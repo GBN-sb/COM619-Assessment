@@ -70,7 +70,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-              
+
       - name: expose variables
         run: echo "COUCH_USER=${{ secrets.COUCH_USER }}"
 
@@ -95,9 +95,9 @@ jobs:
       - name: Run tests
         env:
           COUCH_URL: ${{ vars.COUCH_URL }}
-          COUCH_PORT: ${{ vars.COUCH_PORT }}
+          COUCH_PORT: ${{ vars.COUCH_TEST_PORT }}
           COUCH_USER: ${{ secrets.COUCH_USER }}
-          COUCH_PASSWORD: ${{ secrets.COUCH_PASSWORD }}
+          COUCH_PASSWORD: ${{ secrets.COUCH_TEST_PASSWORD }}
         run: pytest --cov --junitxml=junit.xml -o junit_family=legacy
 
       - name: Upload coverage to Codecov

@@ -1,5 +1,6 @@
 import bcrypt
 import re
+import uuid
 from typing import Optional
 
 
@@ -7,9 +8,6 @@ class User:
     """
     User class implementing schema with secure password handling, role validation, and unique ID management.
     """
-
-    _id_counter = 1
-
     def __init__(
         self,
         name: str,
@@ -20,7 +18,7 @@ class User:
         bio: Optional[str] = None,
         id: int = 0,
     ):
-        self.id = id if id > 0 else self._generate_id()
+        self.id = id if id > 0 else uuid.uuid4().int
         self.name = name
         self.email = email
         self.password_hash = self.hash_password(password)
@@ -29,15 +27,6 @@ class User:
         self.bio = bio
 
         self.validate()
-
-    @classmethod
-    def _generate_id(cls) -> int:
-        """
-        Generates a unique, sequential integer ID.
-        """
-        id_value = cls._id_counter
-        cls._id_counter += 1
-        return id_value
 
     @staticmethod
     def hash_password(password: str) -> str:
