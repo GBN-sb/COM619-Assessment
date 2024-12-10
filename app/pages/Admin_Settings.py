@@ -43,7 +43,7 @@ def display_admin_settings():
                     password=admin_password,
                     role="admin",
                     bio="New Admin",
-                    profile_picture=f"db\\profile_pics\\no_pfp.png"
+                    profile_picture="db\\profile_pics\\no_pfp.png"
                 )
                 success = user_dao.add_user(new_user)
                 if success:

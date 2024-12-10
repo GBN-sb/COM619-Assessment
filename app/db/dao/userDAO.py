@@ -1,4 +1,4 @@
-from typing import Optional, List, Dict, Tuple
+from typing import Optional
 from models.user import User
 from ..couch_client import CouchClient
 

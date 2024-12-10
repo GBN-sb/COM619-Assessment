@@ -1,5 +1,5 @@
 from ..couch_client import CouchClient
-from typing import Dict, List, Optional, Tuple
+from typing import List, Optional, Tuple
 from models.like import Like
 
 class LikesDAO:
