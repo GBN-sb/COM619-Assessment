@@ -96,6 +96,7 @@ jobs:
         env:
           COUCH_URL: ${{ vars.COUCH_URL }}
           COUCH_PORT: ${{ vars.COUCH_PORT }}
+          RUN_ENV: ${{ vars.RUN_ENV}}
           COUCH_USER: ${{ secrets.COUCH_USER }}
           COUCH_PASSWORD: ${{ secrets.COUCH_PASSWORD }}
         run: pytest --cov --junitxml=junit.xml -o junit_family=legacy

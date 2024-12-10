@@ -1,4 +1,4 @@
-from typing import Optional, List, Dict, Tuple
+from typing import Optional
 from models.user import User
 from ..couch_client import CouchClient
 
@@ -40,6 +40,20 @@ class UserDAO:
             print(f"Error fetching user by email: {e}")
             return None
         
+    def get_user_by_username(self, username: str) -> Optional[User]:
+        """
+        Retrieve a user by their email.
+        """
+        query = {"name": username}
+        try:
+            result = self.client.query_documents(self.db_name, query)
+            if result:
+                return User.from_dict(result[0])
+            return None
+        except Exception as e:
+            print(f"Error fetching user by username: {e}")
+            return None
+        
     def update_user_role(self, user_id: int, new_role: str) -> bool:
         """
         Update a user's role by their ID.
@@ -54,7 +68,7 @@ class UserDAO:
             user_doc["role"] = new_role
             doc_id = user_doc["_id"]
             result = self.client.update_doc(self.db_name, doc_id, user_doc)
-            return bool(result)
+            return result[1]
         except Exception as e:
             print(f"Error updating user role: {e}")
             return False
@@ -74,7 +88,7 @@ class UserDAO:
         """
         try:
             docs = self.client.get_all_docs(self.db_name)
-            print(docs)
+            #print(docs)
 
             users = [User.from_dict(doc) for doc in docs]
             return users

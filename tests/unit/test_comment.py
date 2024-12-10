@@ -1,18 +1,15 @@
 import pytest
 from datetime import datetime
-from models.comment import Comment
+from app.models.comment import Comment
 from unittest.mock import patch
 
 def test_comment_creation():
-    # Reset the ID counter
-    Comment._id_counter = 1
     comment = Comment(
         user_id=123,
         post_id=456,
         content="Hello, world!",
         created_at=datetime.now()
     )
-    assert comment.id == 1
     assert comment.user_id == 123
     assert comment.post_id == 456
     assert comment.content == "Hello, world!"
@@ -20,8 +17,6 @@ def test_comment_creation():
     assert isinstance(comment.created_at, datetime)
 
 def test_comment_to_dict():
-    # Reset the ID counter
-    Comment._id_counter = 1
     comment = Comment(
         user_id=123,
         post_id=456,
@@ -29,7 +24,6 @@ def test_comment_to_dict():
         created_at=datetime.now()
     )
     comment_dict = comment.to_dict()
-    assert comment_dict["id"] == 1
     assert comment_dict["user_id"] == 123
     assert comment_dict["post_id"] == 456
     assert comment_dict["content"] == "Hello, world!"

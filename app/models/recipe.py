@@ -1,11 +1,11 @@
 import datetime
+import uuid
 from db.dao.userDAO import UserDAO
 
 class Recipe:
-    _id_counter = 1
 
     def __init__(self, title, description, ingredients, instructions, picture_location, creator_id, id=0):
-        self.id = id if id > 0 else self._generate_id()
+        self.id = id if id > 0 else uuid.uuid4().int
         self.title = title
         self.description = description
         self.ingredients = ingredients
@@ -20,15 +20,6 @@ class Recipe:
         if user is None:
             return False
         return user.role in ["user"] or user.id == self
-
-    @classmethod
-    def _generate_id(cls) -> int:
-        """
-        Generates a unique, sequential integer ID.
-        """
-        id_value = cls._id_counter
-        cls._id_counter += 1
-        return id_value
 
     def to_dict(self) -> dict:
         return {

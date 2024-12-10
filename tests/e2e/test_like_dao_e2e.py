@@ -1,11 +1,11 @@
 import pytest
-from db.dao.userDAO import UserDAO
-from models.user import User
-from db.dao.recipeDAO import RecipeDAO
-from models.recipe import Recipe
-from db.couch_client import CouchClient
-from models.like import Like
-from db.dao.likesDAO import LikesDAO
+from app.db.dao.userDAO import UserDAO
+from app.models.user import User
+from app.db.dao.recipeDAO import RecipeDAO
+from app.models.recipe import Recipe
+from app.db.couch_client import CouchClient
+from app.models.like import Like
+from app.db.dao.likesDAO import LikesDAO
 
 @pytest.fixture(scope="module")
 def couch_client():

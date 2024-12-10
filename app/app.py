@@ -1,10 +1,25 @@
 import streamlit as st
+import os
+import dotenv
 from time import sleep
+from models.user import User
+from db.dao.userDAO import UserDAO
 
-# User data
-usernames = ["username", "admin"]
-passwords = ["password", "admin"]
-user_types = ["user", "admin"]
+dotenv.load_dotenv()
+RUN_ENV = os.getenv('RUN_ENV')
+
+def get_dao(db_base_name):
+    if RUN_ENV == "1":
+        db_name=f"{db_base_name}"
+        return db_name
+    if RUN_ENV == "2":
+        db_name=f"test_{db_base_name}"
+        return db_name
+    if RUN_ENV == "3":
+        db_name=f"dev_{db_base_name}"
+        return db_name
+
+user_dao = UserDAO(db_name=get_dao("users"))
 
 # Page setup
 st.set_page_config(page_title="Login/Signup", page_icon="🔐", layout="centered")
@@ -16,36 +31,30 @@ st.markdown("---")  # Divider for better separation
 def login_page():
     st.header("Login")
     st.markdown("### Please log in to continue.")
-    with st.expander(
-        "Temporary Login Information"
-    ):  # TODO Remove this once the database and DAOs have been integrated
-        st.write("User: username `username`, password `password`.")  # ^
-        st.write("Admin: username `admin`, password `admin`.")  # ^
-
+    
     # Login form
     username = st.text_input("Username", placeholder="Enter your username")
-    password = st.text_input(
-        "Password", type="password", placeholder="Enter your password"
-    )
+    password = st.text_input("Password", type="password", placeholder="Enter your password")
     st.write("###")
     col1, col2 = st.columns(2)
+    
     with col1:
         if st.button("Log In", use_container_width=True, type="primary"):
-            if username in usernames:
-                user_index = usernames.index(username)
-                if password == passwords[user_index]:
-                    if username == "admin":
+            user = user_dao.get_user_by_username(username)
+            if user:
+                if User.verify_password(password, user.password_hash):
+                    if user.role == "admin":
                         st.session_state["admin"] = True
                     else:
                         st.session_state["logged_in"] = True
-                    user_role = user_types[user_index]
-                    st.success(f"Logged in successfully as {user_role.capitalize()}!")
+                    st.success(f"Logged in successfully as {user.role.capitalize()}!")
                     sleep(1)
                     st.switch_page("pages/Homepage.py")  # Switch to the Homepage
                 else:
                     st.error("Incorrect password. Please try again.")
             else:
                 st.error("Username not found. Please try again.")
+    
     with col2:
         if st.button("Signup", use_container_width=True, type="primary"):
             st.session_state.sign_up = True
@@ -64,32 +73,36 @@ def login_page():
 def signup_page():
     st.header("Sign Up")
     st.markdown("### Create a new account.")
-
+    
     # Signup form
     username_signup = st.text_input("Username", placeholder="Choose a unique username")
-    password_signup = st.text_input(
-        "Password", type="password", placeholder="Create a password"
-    )
-    password_reentry = st.text_input(
-        "Confirm Password", type="password", placeholder="Re-enter your password"
-    )
+    email_signup = st.text_input("Email", placeholder="Enter your email address")
+    password_signup = st.text_input("Password", type="password", placeholder="Create a password")
+    password_reentry = st.text_input("Confirm Password", type="password", placeholder="Re-enter your password")
     st.write("###")
     col1, col2 = st.columns(2)
+    
     with col1:
         if st.button("Sign Up", use_container_width=True, type="primary"):
-            if username_signup in usernames:
-                st.error(
-                    "This username is already taken. Please choose a different one."
-                )
+            if user_dao.get_user_by_email(email_signup):
+                st.error("This email is already associated with an account. Please log in.")
             elif password_signup != password_reentry:
                 st.error("Passwords do not match. Please try again.")
             else:
-                usernames.append(username_signup)
-                passwords.append(password_signup)
-                user_types.append("user")
-                st.success("Account created successfully! Please log in.")
-                sleep(1)
-                st.switch_page("pages/Homepage.py")  # Switch to the Homepage
+                try:
+                    new_user = User(name=username_signup, email=email_signup, password=password_signup, bio="", profile_picture="db\\profile_pics\\no_pfp.png")
+                    success = user_dao.add_user(new_user)
+                    if success:
+                        st.success("Account created successfully! Please log in.")
+                        sleep(1)
+                        st.session_state.sign_up = False
+                        st.session_state.login_page = True
+                        st.switch_page("pages/Homepage.py")  # Switch to the Homepage
+                    else:
+                        st.error("Failed to create account. Please try again.")
+                except Exception as e:
+                    st.error(f"An error occurred: {e}")
+    
     with col2:
         if st.button("Login", use_container_width=True, type="primary"):
             st.session_state.sign_up = False
