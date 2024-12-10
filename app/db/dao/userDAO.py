@@ -40,6 +40,21 @@ class UserDAO:
             print(f"Error fetching user by email: {e}")
             return None
         
+    def get_user_by_username(self, username: str) -> Optional[User]:
+        """
+        Retrieve a user by their email.
+        """
+        query = {"name": username}
+        try:
+            result = self.client.query_documents(self.db_name, query)
+            print(result)
+            if result:
+                return User.from_dict(result[0])
+            return None
+        except Exception as e:
+            print(f"Error fetching user by username: {e}")
+            return None
+        
     def update_user_role(self, user_id: int, new_role: str) -> bool:
         """
         Update a user's role by their ID.

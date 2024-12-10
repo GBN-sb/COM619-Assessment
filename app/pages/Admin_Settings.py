@@ -12,7 +12,7 @@ def display_admin_settings():
     st.write("---")
     col1, col2, col3 = st.columns([1, 1, 1], gap="medium")
 
-    user_dao = UserDAO(db_name="test_users" if TEST_MODE else "users")
+    user_dao = UserDAO(db_name="test_users" if TEST_MODE == True else "users")
 
     # Create Admin
     col1.subheader("Create Admin")
