@@ -13,7 +13,6 @@ dotenv.load_dotenv()
 RUN_ENV = os.getenv('RUN_ENV')
 
 def get_dao(db_base_name):
-    print(RUN_ENV)
     if RUN_ENV == "1":
         db_name=f"{db_base_name}"
         return db_name
