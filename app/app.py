@@ -16,7 +16,7 @@ st.markdown("---")  # Divider for better separation
 
 # Login Page
 def login_page():
-    user_dao = UserDAO(db_name="test_users" if TEST_MODE == True else "users")
+    user_dao = UserDAO(db_name="test_users" if TEST_MODE else "users")
     st.header("Login")
     st.markdown("### Please log in to continue.")
     
@@ -59,7 +59,7 @@ def login_page():
 
 # Signup Page
 def signup_page():
-    user_dao = UserDAO(db_name="test_users" if TEST_MODE == True else "users")
+    user_dao = UserDAO(db_name="test_users" if TEST_MODE else "users")
     st.header("Sign Up")
     st.markdown("### Create a new account.")
     
@@ -79,7 +79,7 @@ def signup_page():
                 st.error("Passwords do not match. Please try again.")
             else:
                 try:
-                    new_user = User(name=username_signup, email=email_signup, password=password_signup, bio="", profile_picture=f"db\\profile_pics\\no_pfp.png")
+                    new_user = User(name=username_signup, email=email_signup, password=password_signup, bio="", profile_picture="db\\profile_pics\\no_pfp.png")
                     success = user_dao.add_user(new_user)
                     if success:
                         st.success("Account created successfully! Please log in.")
