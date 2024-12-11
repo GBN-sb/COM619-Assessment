@@ -28,7 +28,7 @@ jobs:
       - name: Install CouchDB with Helm
         run: |
           helm install \
-          --name couch-db \
+          couch-db \
           --version 4.5.3 \
           --set createAdminSecret=false \
           --set couchdbConfig.couchdb.uuid=decafbaddecafbaddecafbaddecafbad \
