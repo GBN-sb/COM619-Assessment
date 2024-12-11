@@ -21,7 +21,7 @@ jobs:
 
       - name: Delete existing CouchDB Secret
         run: |
-          kubectl delete secret couchdb-secret
+          kubectl delete secret couchdb-secret || true
 
       - name: Delete existing CouchDB
         run: |
