@@ -1,0 +1,43 @@
+name: Build and Deploy
+
+on:
+  push:
+    # tags:
+    #   - "v*"
+    branches:
+      - **
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set Docker to use Minikube
+        run: |
+          eval $(minikube -p minikube docker-env)
+
+      - name: Set up kubectl
+        run: |
+          kubectl cluster-info
+          kubectl get nodes
+      - name: Set up Helm
+        uses: Helm/chart-releaser-action@v1
+
+      - name: Create CouchDB Secret
+        run: |
+          kubectl create secret generic couchdb-secret \
+           --from-literal=adminUsername=${{ secrets.COUCH_USER }} \
+           --from-literal=adminPassword=${{ secrets.COUCH_PASSWORD }}
+
+      - name: Install CouchDB with Helm
+        run: |
+          helm install \
+          --name couch-db \
+          --version 4.5.3 \
+          --set createAdminSecret=false \
+          --set couchdbConfig.couchdb.uuid=decafbaddecafbaddecafbaddecafbad \
+            couchdb/couchdb \
+          --namespace default
