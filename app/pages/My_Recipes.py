@@ -1,7 +1,6 @@
 import streamlit as st
 from navigation import make_sidebar
 from db.dao.recipeDAO import RecipeDAO
-from models.recipe import Recipe
 import os
 import dotenv
 
