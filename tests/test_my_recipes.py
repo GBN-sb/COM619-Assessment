@@ -100,7 +100,7 @@ def test_recipe_display(setup_streamlit_mock, recipe_dao, user_dao, mocker):
     for recipe in recipes:
         recipe_dao.create_recipe(recipe)
     
-    # Call the main display function
+    # Call the main My Recipes display function
     display_recipes()
 
     # Assert that st.write was called for each recipe title
