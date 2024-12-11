@@ -6,7 +6,6 @@ def test_recipe_creation():
     recipe = Recipe(
         title="Pancakes",
         description="A delicious breakfast treat.",
-        tags=["Sweet", "Breakfast", "Desert"],
         ingredients=["flour", "milk", "eggs"],
         instructions="Mix ingredients and cook on griddle.",
         picture_location="pancakes.jpg",
@@ -14,7 +13,6 @@ def test_recipe_creation():
     )
     assert recipe.title == "Pancakes"
     assert recipe.description == "A delicious breakfast treat."
-    assert recipe.tags == ["Sweet", "Breakfast", "Desert"]
     assert recipe.ingredients == ["flour", "milk", "eggs"]
     assert recipe.instructions == "Mix ingredients and cook on griddle."
     assert recipe.picture_location == "pancakes.jpg"
@@ -25,7 +23,6 @@ def test_to_dict():
     recipe = Recipe(
         title="Pancakes",
         description="A delicious breakfast treat.",
-        tags=["Sweet", "Breakfast", "Desert"],
         ingredients=["flour", "milk", "eggs"],
         instructions="Mix ingredients and cook on griddle.",
         picture_location="pancakes.jpg",
@@ -34,7 +31,6 @@ def test_to_dict():
     recipe_dict = recipe.to_dict()
     assert recipe_dict["title"] == "Pancakes"
     assert recipe_dict["description"] == "A delicious breakfast treat."
-    assert recipe_dict["tags"] == ["Sweet", "Breakfast", "Desert"]
     assert recipe_dict["ingredients"] == ["flour", "milk", "eggs"]
     assert recipe_dict["instructions"] == "Mix ingredients and cook on griddle."
     assert recipe_dict["pictureLocation"] == "pancakes.jpg"
@@ -46,7 +42,6 @@ def test_from_dict():
         "id": 1,
         "title": "Pancakes",
         "description": "A delicious breakfast treat.",
-        "tags": ["Sweet", "Breakfast", "Desert"],
         "ingredients": ["flour", "milk", "eggs"],
         "instructions": "Mix ingredients and cook on griddle.",
         "pictureLocation": "pancakes.jpg",
@@ -57,7 +52,6 @@ def test_from_dict():
     assert recipe.id == 1
     assert recipe.title == "Pancakes"
     assert recipe.description == "A delicious breakfast treat."
-    assert recipe.tags == ["Sweet", "Breakfast", "Desert"]
     assert recipe.ingredients == ["flour", "milk", "eggs"]
     assert recipe.instructions == "Mix ingredients and cook on griddle."
     assert recipe.picture_location == "pancakes.jpg"
