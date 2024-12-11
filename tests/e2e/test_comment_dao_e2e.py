@@ -39,7 +39,7 @@ def test_end_to_end_comment_operations(comment_dao):
     user_id = user.id
 
     # Add recipe
-    new_recipe = Recipe(title="Pancakes", description="Delicious pancakes", tags=["Sweet", "Breakfast", "Desert"], ingredients=["flour", "milk", "eggs"], instructions="Some instructions" , picture_location="https://example.com/pancakes.jpg", creator_id=user_id)
+    new_recipe = Recipe(title="Pancakes", description="Delicious pancakes", tags=["Sweet", "Breakfast", "Desert"], ingredients=["flour", "milk", "eggs"], instructions="Some instructions" , picture_location_id=123, creator_id=user_id)
     recipe_dao = RecipeDAO(db_name="test_recipes")
     recipe_dao.create_recipe(new_recipe)
     # Get recipe ID

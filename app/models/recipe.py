@@ -4,14 +4,14 @@ from db.dao.userDAO import UserDAO
 
 class Recipe:
 
-    def __init__(self, title, description, tags, ingredients, instructions, picture_location, creator_id, id=0):
+    def __init__(self, title, description, tags, ingredients, instructions, picture_location_id, creator_id, id=0):
         self.id = id if id > 0 else uuid.uuid4().int
         self.title = title
         self.description = description
         self.tags = tags
         self.ingredients = ingredients
         self.instructions = instructions
-        self.picture_location = picture_location
+        self.picture_location_id = picture_location_id
         self.creator_id = creator_id
         self.created_at = datetime.datetime.now()
 
@@ -30,7 +30,7 @@ class Recipe:
             "tags": self.tags,
             "ingredients": self.ingredients,
             "instructions": self.instructions,
-            "pictureLocation": self.picture_location,
+            "pictureLocation": self.picture_location_id,
             "creatorId": self.creator_id,
             "createdAt": self.created_at.isoformat()
         }
@@ -48,7 +48,7 @@ class Recipe:
             tags=data["tags"],
             ingredients=data["ingredients"],
             instructions=data["instructions"],
-            picture_location=data["pictureLocation"],
+            picture_location_id=data["pictureLocation"],
             creator_id=data["creatorId"]
         )
         recipe.created_at = datetime.datetime.fromisoformat(data["createdAt"])
