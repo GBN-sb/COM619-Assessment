@@ -1,5 +1,4 @@
 import pytest
-from unittest.mock import patch, MagicMock
 from app.models.like import Like
 
 def test_like_initialization():
