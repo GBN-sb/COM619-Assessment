@@ -25,7 +25,7 @@ jobs:
 
       - name: Delete existing CouchDB
         run: |
-          helm delete couch-db
+          helm delete couch-db || true
 
       - name: Create CouchDB Secret
         run: |
