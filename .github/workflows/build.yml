@@ -44,7 +44,8 @@ jobs:
           docker rmi recipeApp:latest || true
 
       - name: Build Docker image with environment variables for CouchDB
-        run: docker build \
+        run: eval $(minikube -p minikube docker-env) && \
+          docker build \
           --build-arg COUCH_USER=$COUCH_USER \
           --build-arg COUCH_PASSWORD=$COUCH_PASSWORD \
           -t recipe-app .
