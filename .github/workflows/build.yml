@@ -36,8 +36,27 @@ jobs:
         run: |
           export COUCH_USER=$(kubectl get secret --namespace default couchdb-couchdb -o jsonpath="{.data.adminUsername}" | base64 --decode)
           export COUCH_PASSWORD=$(kubectl get secret --namespace default couchdb-couchdb -o jsonpath="{.data.adminPassword}" | base64 --decode)
-          export COUCH_URL=http://couchdb-svc-couchdb.couchdb.svc.cluster.local
+          export COUCH_URL=http://localhost:5984
           export COUCH_PORT=5984
+
+      - name: Wait for CouchDB to be ready
+        run: |
+          kubectl wait --for=condition=ready pod -l app=couchdb --timeout=600s
+          kubectl port-forward svc/couchdb-svc-couchdb 5984:5984 &
+          sleep 2
+
+      - name: Set up databases
+        run: make init_db
+
+      - name: Take down port-forwarding
+        run: |
+          killall kubectl || true
+          export COUCH_URL=http://couchdb-svc-couchdb.couchdb.svc.cluster.local
+
+      - name: Take down previous deployments
+        run: |
+          kubectl delete deployment recipe-app || true
+          kubectl delete service recipe-app || true
 
       - name: Delete previous docker images
         run: |

@@ -22,4 +22,4 @@ spec:
             - containerPort: 8501
           env:
             - name: STREAMLIT_HOST
-              value: "streamlit-service.default.svc.cluster.local"
+              value: "recipe-service.default.svc.cluster.local"
