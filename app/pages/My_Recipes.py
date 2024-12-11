@@ -62,14 +62,11 @@ def display_recipes():
                 # Check if the recipe has an associated image
                 if recipe.picture_location_id:
                     image_path = os.path.join(IMAGE_FOLDER, recipe.picture_location_id)
-                    print(image_path)
                     if os.path.exists(image_path):
                         st.image(image_path, caption=recipe.title, use_column_width=True)
                     else:
-                        print("Image not in path")
                         st.write("No image available.")
                 else:
-                    print("No image id")
                     st.write("No image available.")
             
             st.write(f"**Description:** {recipe.description}")
