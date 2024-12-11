@@ -47,7 +47,7 @@ jobs:
         run: docker build \
           --build-arg COUCH_USER=$COUCH_USER \
           --build-arg COUCH_PASSWORD=$COUCH_PASSWORD \
-          -t recipeApp:latest .
+          -t recipe-app .
 
       - name: Apply Kubernetes configuration
         run: kubectl apply -f k8s/recipe_app/deployment.yaml -f k8s/recipe_app/service.yaml
