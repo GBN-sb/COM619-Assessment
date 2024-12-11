@@ -23,11 +23,16 @@ jobs:
         run: |
           kubectl delete secret couchdb-secret
 
+      - name: Delete existing CouchDB
+        run: |
+          helm delete couch-db
+
       - name: Create CouchDB Secret
         run: |
           kubectl create secret generic couchdb-secret \
            --from-literal=adminUsername=${{ secrets.COUCH_USER }} \
-           --from-literal=adminPassword=${{ secrets.COUCH_PASSWORD }}
+           --from-literal=adminPassword=${{ secrets.COUCH_PASSWORD }} \
+           --from-literal=cookieAuthSecret=${{ secrets.COUCH_COOKIE_AUTH_SECRET }}
 
       - name: Install CouchDB with Helm
         run: |
