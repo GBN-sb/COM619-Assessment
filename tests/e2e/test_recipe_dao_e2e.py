@@ -34,7 +34,7 @@ def test_end_to_end_recipe_operations(recipe_dao):
     user_id = user.id
 
     # Add recipe
-    new_recipe = Recipe(title="Pancakes", description="Delicious pancakes", ingredients=["flour", "milk", "eggs"], instructions="Some instructions" , picture_location="https://example.com/pancakes.jpg", creator_id=user_id)
+    new_recipe = Recipe(title="Pancakes", description="Delicious pancakes", tags=["Sweet", "Breakfast", "Desert"], ingredients=["flour", "milk", "eggs"], instructions="Some instructions" , picture_location="https://example.com/pancakes.jpg", creator_id=user_id)
     assert recipe_dao.create_recipe(new_recipe) is not None
 
     # Get recipe by title
