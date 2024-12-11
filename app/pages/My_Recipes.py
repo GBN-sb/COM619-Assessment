@@ -45,7 +45,6 @@ def display_recipes():
 
     for recipe in recipes:
         with st.container():
-            st.write("---")
             st.write(f"{recipe.title}")
             col1, col2 ,col3 = st.columns([1, 1, 1], gap="small")
             
@@ -82,8 +81,6 @@ def display_recipes():
                         st.experimental_rerun()  # Refresh the page to update the list
                     else:
                         st.error(f"Failed to remove {recipe.title}.")
-            
-            st.write("---")
 
 def main():  # pragma: no cover
     st.set_page_config(layout="wide")
