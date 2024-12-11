@@ -39,16 +39,15 @@ jobs:
           export COUCH_URL=http://couchdb-svc-couchdb.couchdb.svc.cluster.local
           export COUCH_PORT=5984
 
-      - name: Delete previos docker images
+      - name: Delete previous docker images
         run: |
-          docker rmi recipeApp:latest || true
+          docker rmi recipe-app:latest || true
 
       - name: Build Docker image with environment variables for CouchDB
-        run: eval $(minikube -p minikube docker-env) && \
-          docker build \
+        run: docker buildx build \
           --build-arg COUCH_USER=$COUCH_USER \
           --build-arg COUCH_PASSWORD=$COUCH_PASSWORD \
-          -t recipe-app .
+          -t recipe-app:latest .
 
       - name: Apply Kubernetes configuration
         run: kubectl apply -f k8s/recipe_app/deployment.yaml -f k8s/recipe_app/service.yaml
