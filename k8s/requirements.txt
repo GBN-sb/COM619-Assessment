@@ -1,0 +1,6 @@
+
+streamlit
+python-dotenv
+couchdb3
+bcrypt
+uuid

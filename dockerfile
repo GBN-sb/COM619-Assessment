@@ -5,7 +5,7 @@ FROM python:3.12-slim
 WORKDIR /app
 
 # Copy requirements first for caching layers
-COPY cluster/requirements.txt .
+COPY k8s/requirements.txt .
 
 # Install dependencies system-wide
 RUN pip install --upgrade pip && \
