@@ -22,7 +22,7 @@ spec:
             - containerPort: 8501
           env:
             - name: STREAMLIT_HOST
-              value: "recipe-service.default.svc.cluster.local"
+              value: "recipe-service.recipe-app.svc.cluster.local"
             - name: COUCH_USER
               valueFrom:
                 secretKeyRef:
@@ -34,7 +34,7 @@ spec:
                   name: couchdb-secret
                   key: password
             - name: COUCH_URL
-              value: "http://couchdb-svc-couchdb:5984"
+              value: "http://couchdb-svc-couchdb.couchdb.svc.cluster.local"
             - name: COUCH_PORT
               value: "5984"
             - name: RUN_ENV
