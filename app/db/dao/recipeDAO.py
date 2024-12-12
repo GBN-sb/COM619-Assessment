@@ -82,7 +82,7 @@ class RecipeDAO:
         """
         Retrieves recipes by their author.
         """
-        query = {"selector": {"userId": author}}
+        query = {"creatorId": author}
         results = self.client.query_documents(self.db_name, query)
         return [Recipe.from_dict(doc) for doc in results]
     

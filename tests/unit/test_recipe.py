@@ -9,7 +9,7 @@ def test_recipe_creation():
         tags=["Sweet", "Breakfast", "Desert"],
         ingredients=["flour", "milk", "eggs"],
         instructions="Mix ingredients and cook on griddle.",
-        picture_location="pancakes.jpg",
+        picture_location_id=123,
         creator_id="123"
     )
     assert recipe.title == "Pancakes"
@@ -17,7 +17,7 @@ def test_recipe_creation():
     assert recipe.tags == ["Sweet", "Breakfast", "Desert"]
     assert recipe.ingredients == ["flour", "milk", "eggs"]
     assert recipe.instructions == "Mix ingredients and cook on griddle."
-    assert recipe.picture_location == "pancakes.jpg"
+    assert recipe.picture_location_id == 123
     assert recipe.creator_id == "123"
     assert isinstance(recipe.created_at, datetime)
 
@@ -28,7 +28,7 @@ def test_to_dict():
         tags=["Sweet", "Breakfast", "Desert"],
         ingredients=["flour", "milk", "eggs"],
         instructions="Mix ingredients and cook on griddle.",
-        picture_location="pancakes.jpg",
+        picture_location_id=123,
         creator_id="123"
     )
     recipe_dict = recipe.to_dict()
@@ -37,7 +37,7 @@ def test_to_dict():
     assert recipe_dict["tags"] == ["Sweet", "Breakfast", "Desert"]
     assert recipe_dict["ingredients"] == ["flour", "milk", "eggs"]
     assert recipe_dict["instructions"] == "Mix ingredients and cook on griddle."
-    assert recipe_dict["pictureLocation"] == "pancakes.jpg"
+    assert recipe_dict["pictureLocation"] == 123
     assert recipe_dict["creatorId"] == "123"
     assert "createdAt" in recipe_dict
 
@@ -49,7 +49,7 @@ def test_from_dict():
         "tags": ["Sweet", "Breakfast", "Desert"],
         "ingredients": ["flour", "milk", "eggs"],
         "instructions": "Mix ingredients and cook on griddle.",
-        "pictureLocation": "pancakes.jpg",
+        "pictureLocation": 123,
         "creatorId": "123",
         "createdAt": datetime.now().isoformat()
     }
@@ -60,7 +60,7 @@ def test_from_dict():
     assert recipe.tags == ["Sweet", "Breakfast", "Desert"]
     assert recipe.ingredients == ["flour", "milk", "eggs"]
     assert recipe.instructions == "Mix ingredients and cook on griddle."
-    assert recipe.picture_location == "pancakes.jpg"
+    assert recipe.picture_location_id == 123
     assert recipe.creator_id == "123"
     assert isinstance(recipe.created_at, datetime)
 
