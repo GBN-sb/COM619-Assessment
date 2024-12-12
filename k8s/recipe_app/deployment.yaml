@@ -23,3 +23,19 @@ spec:
           env:
             - name: STREAMLIT_HOST
               value: "recipe-service.default.svc.cluster.local"
+            - name: COUCH_USER
+              valueFrom:
+                secretKeyRef:
+                  name: couchdb-secret
+                  key: username
+            - name: COUCH_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: couchdb-secret
+                  key: password
+            - name: COUCH_URL
+              value: "http://couchdb-svc-couchdb:5984"
+            - name: COUCH_PORT
+              value: "5984"
+            - name: RUN_ENV
+              value: "1"
