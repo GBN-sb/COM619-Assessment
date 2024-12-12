@@ -30,8 +30,6 @@ def test_comment_to_dict():
     assert comment_dict["created_at"] == comment.created_at
 
 def test_comment_from_dict():
-    # Reset the ID counter
-    Comment._id_counter = 1
     data = {
         "id": 1,
         "user_id": 123,
@@ -58,8 +56,6 @@ def test_comment_from_dict_missing_fields():
 
 @patch('db.dao.userDAO.UserDAO.get_user_by_id')
 def test_check_user_id_is_valid(mock_get_user_by_id):
-    # Reset the ID counter
-    Comment._id_counter = 1
     mock_get_user_by_id.return_value = True
     comment = Comment(
         user_id=123,
@@ -72,8 +68,6 @@ def test_check_user_id_is_valid(mock_get_user_by_id):
 
 @patch('db.dao.userDAO.UserDAO.get_user_by_id')
 def test_check_user_id_is_invalid(mock_get_user_by_id):
-    # Reset the ID counter
-    Comment._id_counter = 1
     mock_get_user_by_id.return_value = None
     comment = Comment(
         user_id=123,
@@ -86,8 +80,6 @@ def test_check_user_id_is_invalid(mock_get_user_by_id):
 
 @patch('db.dao.recipeDAO.RecipeDAO.get_recipe_by_id')
 def test_check_recipe_id_is_valid(mock_get_recipe_by_id):
-    # Reset the ID counter
-    Comment._id_counter = 1
     mock_get_recipe_by_id.return_value = True
     comment = Comment(
         user_id=123,
