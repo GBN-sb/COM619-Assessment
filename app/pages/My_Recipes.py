@@ -61,7 +61,7 @@ def display_recipes():
                 if recipe.picture_location_id:
                     image_path = os.path.join(IMAGE_FOLDER, recipe.picture_location_id)
                     if os.path.exists(image_path):
-                        st.image(image_path, caption=recipe.title, use_column_width=True)
+                        st.image(image_path, caption=recipe.title, use_container_width =True)
                     else:
                         st.write("No image available.")
                 else:
@@ -72,13 +72,13 @@ def display_recipes():
             col5, col6 = st.columns([1, 1], gap="small")
             with col5:
                 if st.button("Edit", key=f"edit_{recipe.id}"):
-                    st.write(f"Editing {recipe.title}...")
+                    st.error(f"Functionality not added... sorry")
                     # TODO: Implement recipe editing functionality
             with col6:
                 if st.button("Remove", key=f"remove_{recipe.id}"):
                     if recipe_dao.delete_recipe(recipe.id):
                         st.success(f"Removed {recipe.title}.")
-                        st.experimental_rerun()  # Refresh the page to update the list
+                        st.rerun()  # Refresh the page to update the list
                     else:
                         st.error(f"Failed to remove {recipe.title}.")
 

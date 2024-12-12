@@ -102,6 +102,11 @@ def test_recipe_display(setup_streamlit_mock, recipe_dao, user_dao, mocker):
     
     # Call the main display function
     display_recipes()
+    print(recipe_dao.get_recipes_by_author(test_creator.id))
+
+    # Assert that st.write was called for each recipe title
+    for recipe in recipes:
+        st.write.assert_any_call(f"{recipe.title}")
 
     # Assert that the st.button was called for each Edit and Remove button
     for recipe in recipes:
