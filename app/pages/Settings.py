@@ -29,7 +29,6 @@ def display_settings():
 
     current_user = st.session_state.user
     starting_username = st.session_state.user.name
-    starting_user_id = st.session_state.user.id
 
     # Column 1: Change Username
     with col1:
@@ -66,7 +65,7 @@ def display_settings():
                 if User.verify_password(current_password, current_user.password_hash):
                     try:
                         # Use the new update_user_password method
-                        if user_dao.update_user_password(current_user.id, new_password):
+                        if user_dao.update_user_password(current_user.id, User.hash_password(new_password)):
                             st.success("Password updated successfully!")
                             # Update session state with the new password hash
                             updated_user = current_user
