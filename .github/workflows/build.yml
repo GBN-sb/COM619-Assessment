@@ -34,7 +34,7 @@ jobs:
 
       - name: Get credentials
         run: |
-          export COUCH_USER=$(kubectl get secret --namespace couchdb couchdb-couchdb -o jsonpath="{.data.adminUsername}" | base64 --decode)
+          export COUCH_USERNAME=$(kubectl get secret --namespace couchdb couchdb-couchdb -o jsonpath="{.data.adminUsername}" | base64 --decode)
           export COUCH_PASSWORD=$(kubectl get secret --namespace couchdb couchdb-couchdb -o jsonpath="{.data.adminPassword}" | base64 --decode)
           export COUCH_URL=http://localhost:5984
           export COUCH_PORT=5984
@@ -63,7 +63,7 @@ jobs:
           docker rmi recipe-app:latest || true
 
       - name: Build Docker image with environment variables for CouchDB
-        run: docker build --build-arg COUCH_USER=$COUCH_USER --build-arg COUCH_PASSWORD=$COUCH_PASSWORD -t recipe-app:latest .
+        run: docker build --build-arg COUCH_USER=$COUCH_USERNAME --build-arg COUCH_PASSWORD=$COUCH_PASSWORD -t recipe-app:latest .
 
       - name: Apply Kubernetes configuration
         run: kubectl apply -f k8s/recipe_app/deployment.yaml -f k8s/recipe_app/service.yaml -n recipe-app
