@@ -41,6 +41,7 @@ jobs:
 
       - name: Wait for CouchDB to be ready
         run: |
+          sleep 3
           kubectl wait --for=condition=ready pod -l app=couchdb -n couchdb --timeout=600s
           kubectl port-forward svc/couchdb-svc-couchdb -n couchdb 5984:5984 &
           sleep 2
