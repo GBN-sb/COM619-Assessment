@@ -112,3 +112,40 @@ class UserDAO:
         except Exception as e:
             print(f"Error deleting user: {e}")
             return False
+
+    def delete_user_by_username(self, username: str) -> bool:
+        """
+        Delete a user by their ID.
+        """
+        try:
+            # Find the user document by ID
+            user_doc = self.client.query_documents(self.db_name, {"name": username})[0]
+            if not user_doc:
+                print(f"User with ID {username} not found.")
+                return False
+            doc_id = user_doc["_id"]
+            result = self.client.delete_doc(self.db_name, doc_id)
+            return result
+        except Exception as e:
+            print(f"Error deleting user: {e}")
+            return False
+
+    def update_user_password(self, user_id: int, new_password: str) -> bool:
+        """
+        Update a user's password by their ID.
+        """
+        try:
+            # Find the user document by ID
+            user_doc = self.client.query_documents(self.db_name, {"id": user_id})[0]
+            if not user_doc:
+                print(f"User with ID {user_id} not found.")
+                return False
+
+            # Update the password field
+            user_doc["passwordHash"] = new_password  # Assuming "password" is the field name
+            doc_id = user_doc["_id"]
+            result = self.client.update_doc(self.db_name, doc_id, user_doc)
+            return result[1]  # Return True if update was successful, False otherwise
+        except Exception as e:
+            print(f"Error updating user password: {e}")
+            return False
