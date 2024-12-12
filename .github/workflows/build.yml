@@ -70,7 +70,9 @@ jobs:
         run: kubectl apply -f k8s/recipe_app/deployment.yaml -f k8s/recipe_app/service.yaml -n recipe-app
 
       - name: Wait for deployment to be ready
-        run: kubectl wait --for=condition=available --timeout=600s deployment/recipe-app
+        run: |
+          sleep 3
+          kubectl wait --for=condition=available --timeout=600s deployment/recipe-app -n recipe-app
 
       - name: Run health check
         run: kubectl port-forward svc/recipe-app -n recipe-app 5981:80 &
