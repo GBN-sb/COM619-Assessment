@@ -72,5 +72,5 @@ jobs:
           sleep 3
           kubectl wait --for=condition=available --timeout=600s deployment/recipe-app -n recipe-app
 
-      - name: Run health check
-        run: kubectl port-forward svc/recipe-app -n recipe-app 5981:80 &
+      - name: Expose application
+        run: nohup kubectl port-forward svc/recipe-service -n recipe-app 8080:8501 > port-forward.log 2>&1 &
