@@ -16,47 +16,7 @@ jobs:
       - name: Set Docker to use Minikube
         run: |
           eval $(minikube -p minikube docker-env)
-
-      - name: Delete existing CouchDB
-        run: |
-          helm delete couchdb -n couchdb || true
-
-      - name: Install CouchDB with Helm
-        run: |
-          helm install \
-          couchdb \
-          --version 4.5.3 \
-          --set couchdbConfig.couchdb.uuid=decafbaddecafbaddecafbaddecafbad \
-            couchdb/couchdb \
-          --namespace couchdb
-
-      - name: Get credentials
-        run: |
-          export COUCHDB_USERNAME=$(kubectl get secret --namespace couchdb couchdb-couchdb -o jsonpath="{.data.adminUsername}" | base64 --decode)
-          export COUCHDB_PASSWORD=$(kubectl get secret --namespace couchdb couchdb-couchdb -o jsonpath="{.data.adminPassword}" | base64 --decode)
-          export COUCHDB_URL=http://localhost:5984
-          export COUCHDB_PORT=5984
-          echo "COUCHDB_USERNAME=$COUCHDB_USERNAME" >> $GITHUB_ENV
-          echo "COUCHDB_PASSWORD=$COUCHDB_PASSWORD" >> $GITHUB_ENV
-          echo "COUCHDB_URL=$COUCHDB_URL" >> $GITHUB_ENV
-          echo "COUCHDB_PORT=$COUCHDB_PORT" >> $GITHUB_ENV
-      
-      - name: Wait for CouchDB to be ready
-        run: |
-          sleep 3
-          kubectl wait --for=condition=ready pod -l app=couchdb -n couchdb --timeout=600s
-          kubectl port-forward svc/couchdb-svc-couchdb -n couchdb 5984:5984 &
-          sleep 2
-      
-      - name: Set up databases
-        env:
-          COUCHDB_USERNAME: ${{ secrets.COUCHDB_USERNAME }}
-          COUCHDB_PASSWORD: ${{ secrets.COUCHDB_PASSWORD }}
-          COUCHDB_URL: ${{ secrets.COUCHDB_URL }}
-          COUCHDB_PORT: ${{ secrets.COUCHDB_PORT }}
-        run: make init_db
-
-
+    
       - name: Take down port-forwarding
         run: |
           killall kubectl || true
@@ -72,7 +32,14 @@ jobs:
           docker rmi recipe-app:latest || true
 
       - name: Build Docker image with environment variables for CouchDB
-        run: docker build --build-arg COUCH_USER=$COUCHDB_USERNAME --build-arg COUCHDB_PASSWORD=$COUCH_PASSWORD -t recipe-app:latest .
+        env:
+          COUCHDB_USERNAME: ${{ secrets.COUCHDB_USERNAME }}
+          COUCHDB_PASSWORD: ${{ secrets.COUCHDB_PASSWORD }}
+        run: |
+          docker build \
+            --build-arg COUCH_USER=${{ secrets.COUCHDB_USERNAME }} \
+            --build-arg COUCH_PASSWORD=${{ secrets.COUCHDB_PASSWORD }} \
+            -t recipe-app:latest .
 
       - name: Apply Kubernetes configuration
         run: kubectl apply -f k8s/recipe_app/deployment.yaml -f k8s/recipe_app/service.yaml -n recipe-app
