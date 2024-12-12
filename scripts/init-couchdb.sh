@@ -80,4 +80,8 @@ for DB in "${DATABASES[@]}"; do
   fi
 done
 
+# Add a default admin user
+echo -e "${GREEN}Creating default admin user:${NC} admin"
+python3 add_default_admin.py
+
 exit 0
