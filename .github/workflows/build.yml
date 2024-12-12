@@ -21,7 +21,7 @@ jobs:
 
       - name: Delete existing CouchDB
         run: |
-          helm delete couchdb || true
+          helm delete couchdb -n couchdb || true
 
       - name: Install CouchDB with Helm
         run: |
