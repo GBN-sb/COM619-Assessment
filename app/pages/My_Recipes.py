@@ -72,7 +72,7 @@ def display_recipes():
             col5, col6 = st.columns([1, 1], gap="small")
             with col5:
                 if st.button("Edit", key=f"edit_{recipe.id}"):
-                    st.error(f"Functionality not added... sorry")
+                    st.error("Functionality not added... sorry")
                     # TODO: Implement recipe editing functionality
             with col6:
                 if st.button("Remove", key=f"remove_{recipe.id}"):
