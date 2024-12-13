@@ -110,5 +110,5 @@ def test_recipe_display(setup_streamlit_mock, recipe_dao, user_dao, mocker):
 
     # Assert that the st.button was called for each Edit and Remove button
     for recipe in recipes:
-        st.button.assert_any_call("Edit", key=f"edit_{recipe.id}")
         st.button.assert_any_call("Remove", key=f"remove_{recipe.id}")
+        st.button.assert_any_call("Edit", key=f"edit_{recipe.id}")
