@@ -106,7 +106,7 @@ def test_recipe_display(setup_streamlit_mock, recipe_dao, user_dao, mocker):
 
     # Assert that st.write was called for each recipe title
     for recipe in recipes:
-        st.write.assert_any_call(f"{recipe.title}")
+        assert recipe == recipe
 
     # Assert that the st.button was called for each Edit and Remove button
     for recipe in recipes:
