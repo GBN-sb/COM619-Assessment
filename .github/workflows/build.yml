@@ -12,10 +12,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Set Docker to use Minikube
-        run: |
-          eval $(minikube -p minikube docker-env)
     
       - name: Take down port-forwarding
         run: |
@@ -25,17 +21,15 @@ jobs:
       - name: Take down previous deployments
         run: |
           kubectl delete deployment recipe-app -n recipe-app || true
-          kubectl delete service recipe-app -n recipe-app || true
-
-      - name: Delete previous docker images
-        run: |
-          docker rmi recipe-app:latest || true
+          kubectl delete service recipe-service -n recipe-app || true
 
       - name: Build Docker image with environment variables for CouchDB
         env:
           COUCHDB_USERNAME: ${{ secrets.COUCHDB_USERNAME }}
           COUCHDB_PASSWORD: ${{ secrets.COUCHDB_PASSWORD }}
         run: |
+          eval $(minikube -p minikube docker-env)
+          docker rmi recipe-app:latest || true
           docker build \
             --build-arg COUCH_USER=${{ secrets.COUCHDB_USERNAME }} \
             --build-arg COUCH_PASSWORD=${{ secrets.COUCHDB_PASSWORD }} \
