@@ -28,9 +28,6 @@ def setup_streamlit_mocks(mocker):
 
     return mocker
 
-
-    return mocker
-
 def test_display_settings(setup_streamlit_mocks):
     """Test the display_settings function to verify components and logic."""
     mocker = setup_streamlit_mocks
