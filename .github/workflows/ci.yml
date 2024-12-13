@@ -74,8 +74,8 @@ jobs:
           COUCH_USER: ${{ secrets.COUCH_USER }}
         run: |
           # Port forward couchdb for tests
-          kubectl port-forward svc/couchdb-svc-couchdb -n couchdb 5984:5984 &
-          export COUCH_PASSWORD=$(kubectl get secret couchdb-couchdb -o go-template='{{ .data.adminPassword }}' -n couchdb | base64 --decode)
+          kubectl port-forward svc/couchdb-svc-couchdb -n couchdb 5984:5984 & 
+          COUCH_PASSWORD=$(kubectl get secret couchdb-couchdb -o go-template='{{ .data.adminPassword }}' -n couchdb | base64 --decode)
           pytest --cov --junitxml=junit.xml -o junit_family=legacy
 
       - name: Upload coverage to Codecov
