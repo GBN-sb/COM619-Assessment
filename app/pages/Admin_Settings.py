@@ -76,7 +76,6 @@ def display_admin_settings():
                 user = user_dao.get_user_by_email(grant_email)
                 if user:
                     success = user_dao.update_user_role(user.id, "admin")
-                    print(success)
                     if success:
                         st.success(f"Admin access granted to user '{grant_username}'.")
                     else:
@@ -98,7 +97,7 @@ def display_admin_settings():
                 users = user_dao.get_all_users()
                 user_to_delete = next((u for u in users if u.name == delete_username), None)
                 if user_to_delete:
-                    success = user_dao.delete_user(user_to_delete.id)
+                    success = user_dao.delete_user_by_username(delete_username)
                     if success:
                         st.success(f"User '{delete_username}' deleted successfully.")
                     else:
